@@ -1,0 +1,8 @@
+p:hover{
+    cursor: pointer;
+    background-color: rgb(239, 237, 237);
+}
+
+.category-btn {
+    width: 100%;
+}

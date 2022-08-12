@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <title>19+</title>
 </head>
 <body>
@@ -19,32 +19,37 @@
                
                 <!-- dropdown start -->
 
-                <div class="dropdown"> <!-- add "is-hoverable" to see dropdown items-->
+                <div class="column is-6 drink-category dropdown"> <!-- add "is-hoverable" to see dropdown items-->
                     <div class="dropdown-trigger">
-                      <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span>Dropdown button</span>
+                      <button class="category-btn button" aria-haspopup="true" aria-controls="dropdown-menu">
+                        <span class="button-content column is-11">Choose your poison</span>
                         <span class="icon is-small">
-                          <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            <ion-icon name="chevron-down-outline"></ion-icon>  
                         </span>
                       </button>
                     </div>
                     <div class="dropdown-menu" id="dropdown-menu" role="menu">
                       <div class="dropdown-content">
                         <p class="dropdown-item">
-                          Dropdown item
+                          Gin
                         </p>
                         <p class="dropdown-item">
-                          Other dropdown item
+                          Brandy
                         </p>
                         <p class="dropdown-item">
-                          Active dropdown item
+                          Whiskey
                         </p>
                         <p class="dropdown-item">
-                          Other dropdown item
+                          Rum
                         </p>
-                        <hr class="dropdown-divider">
                         <p class="dropdown-item">
-                          With a divider
+                            Tequila
+                        </p>
+                        <p class="dropdown-item">
+                            Vodka
+                        </p>
+                        <p class="dropdown-item">
+                            Absinthe
                         </p>
                       </div>
                     </div>
@@ -54,7 +59,7 @@
 
 
                   <!-- test 2 -->
-                  <div class="dropdown test">
+                  <!-- <div class="dropdown test">
                     <div class="dropdown-trigger">
                       <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
                         <span>Click me</span>
@@ -92,7 +97,7 @@
                         </a>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
 
                   <!-- test 2 -->
 
@@ -106,7 +111,9 @@
     </main>
 
 
-</body>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <!-- <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./assets/js/script.js"></script>
+</body>
 </html>
