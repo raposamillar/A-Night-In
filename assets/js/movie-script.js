@@ -1,6 +1,10 @@
 var movieCategoryEl = document.querySelector(".movie-category");
 var genreEl = document.querySelector("#genre-list");
 var buttonContent2 = document.querySelector(".button-content-2");
+var posterEl = document.querySelector(".poster");
+var movieDescriptionEl = document.querySelector(".movie-description");
+var movieContentEl = document.querySelector(".movie-content");
+var shuffleBtn2El = document.querySelector(".movie-btn");
 
 
 var movieCategory = function (event) {
@@ -44,7 +48,7 @@ var checkGenre = function(check){
     console.log(check[genreCheck].id);
     var genreId = check[genreCheck].id;
 
-    searchMovie(genreId)
+    searchMovie(genreId);
 
 }
 
@@ -63,7 +67,7 @@ var searchMovie = function (genreId) {
             var random =  Math.floor(Math.random() * data.results.length) 
             console.log(random);
             console.log(data.results[random].title);
-           
+            displayMovie(data.results[random]);
         })
         .catch(function(error){
             console.log("error message")
@@ -72,14 +76,17 @@ var searchMovie = function (genreId) {
 };
 
 
+var displayMovie = function(data){
+
+
+    posterEl.innerHTML = "<img src='https://image.tmdb.org/t/p/original" + data.poster_path +  "' alt= 'poster-path' class='posterImg'>"
+
+    
+}
 
 
 
-
-
-
-
-
+shuffleBtn2El.addEventListener("click",searchMovieGenre);
 
 
 
