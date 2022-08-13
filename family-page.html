@@ -9,8 +9,116 @@
     <title>Family</title>
 </head>
 <body>
+    <header>
+        <h1 id="title">Find your pair(family)</h1>
+    </header>
+
+    <main>
+        <div class="columns is-marginless is-flex-wrap-wrap">
+            <div class="column is-6 has-background-link">
+               
+                <!-- dropdown start -->
+
+                <div class="column is-6 drink-category dropdown"> <!-- add "is-hoverable" to see dropdown items-->
+                    <div class="dropdown-trigger">
+                      <button class="category-btn button" aria-haspopup="true" aria-controls="dropdown-menu">
+                        <span class="button-content column is-11">Choose your poison</span>
+                        <span class="icon is-small">
+                            <ion-icon name="chevron-down-outline"></ion-icon>  
+                        </span>
+                      </button>
+                    </div>
+                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                      <div class="dropdown-content" id="drink-list">
+                        <p class="dropdown-item">
+                          Gin
+                        </p>
+                        <p class="dropdown-item">
+                          Brandy
+                        </p>
+                        <p class="dropdown-item">
+                          Whiskey
+                        </p>
+                        <p class="dropdown-item">
+                          Rum
+                        </p>
+                        <p class="dropdown-item">
+                            Tequila
+                        </p>
+                        <p class="dropdown-item">
+                            Vodka
+                        </p>
+                        <p class="dropdown-item">
+                            Absinthe
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                    <button class="drinks-btn button">Shuffle</button>
+              <div class="output-container column is-6">
+              
+          
+              </div>
+              <div class="ingredients">
+                  <ul class="ing-content">
+                  </ul>
+              </div>
+            </div>
+            
+            <div class="column is-6 has-background-primary">
+              <div class="column is-6 movie-category dropdown"> <!-- add "is-hoverable" to see dropdown items-->
+                <div class="dropdown-trigger">
+                  <button class="category-btn button" aria-haspopup="true" aria-controls="dropdown-menu">
+                    <span class="button-content-2 column is-11">Choose your genre</span>
+                    <span class="icon is-small">
+                        <ion-icon name="chevron-down-outline"></ion-icon>  
+                    </span>
+                  </button>
+                </div>
+                <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                  <div class="dropdown-content" id ="genre-list">
+                    <p class="dropdown-item">
+                      Action
+                    </p>
+                    <p class="dropdown-item">
+                      Adventure
+                    </p>
+                    <p class="dropdown-item">
+                      Animation
+                    </p>
+                    <p class="dropdown-item">
+                      Comedy
+                    </p>
+                    <p class="dropdown-item">
+                        Crime
+                    </p>
+                    <p class="dropdown-item">
+                        Documentary
+                    </p>
+                    <p class="dropdown-item">
+                        Drama
+                    </p>
+                  </div>
+                </div>
+                
+              </div>
+              <button class="movie-btn button ">Shuffle</button>
+              <div class="poster column is-6">
+              
+          
+              </div>
+              <div class="movie-description">
+                  <ul class="movie-content">
+                  </ul>
+              </div>
+            </div>
+            
+        </div>
+    </main>
     
 </body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="./js/script.js"></script>
+    <script src="./assets/js/movie-script.js"></script>
+    <script src="./assets/js/drink-script.js"></script>
 </html>
