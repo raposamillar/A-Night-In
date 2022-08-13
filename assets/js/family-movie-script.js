@@ -52,9 +52,10 @@ var checkGenre = function(check){
 
 }
 
-
+// var rand = ""
 var searchMovie = function (genreId) {
-    var apiUrl = "https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&page=5&language=en-US&with_genres=" + genreId ;
+    var random1 =  Math.floor(Math.random() * 50)+1
+    var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=popularity.desc&page="+ random1 + "&with_genres=10751&with_genres=" + genreId +"&certification_country=CA&certification.lte=PG&certification.lte=PG-13";
     fetch (apiUrl)
         .then(function(response){
             if (!response.ok) {
@@ -64,22 +65,26 @@ var searchMovie = function (genreId) {
         })
         .then(function(data) {
             console.log(data);
-            var random =  Math.floor(Math.random() * data.results.length) 
+            var random =  Math.floor(Math.random() * data.results.length) ;
             console.log(random);
-            //console.log(data.results[random].title);
+            // console.log(data.results[random].title);
             displayMovie(data.results[random]);
+
         })
-        .catch(function(error){
-            console.log("error message")
-        });
+        // .catch(function(error){
+        //     console.log("error message")
+        // });
 
 };
+
+
+
 
 
 var displayMovie = function(data){
  
     
-    
+    console.log("data is",data);
     posterEl.innerHTML = "<img src='https://image.tmdb.org/t/p/original" + data.poster_path +  "' alt= 'poster-path' class='posterImg'>"
     movieContentEl.textContent= "";
     var title = document.createElement("li");

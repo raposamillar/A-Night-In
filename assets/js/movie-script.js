@@ -54,7 +54,8 @@ var checkGenre = function(check){
 
 
 var searchMovie = function (genreId) {
-    var apiUrl = "https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&page=5&language=en-US&with_genres=" + genreId ;
+    var random1 =  Math.floor(Math.random() * 100)
+    var apiUrl = "https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=popularity.desc&page=1&language=en-US&with_genres=" + genreId ;
     fetch (apiUrl)
         .then(function(response){
             if (!response.ok) {
