@@ -66,7 +66,7 @@ var searchMovie = function (genreId) {
             console.log(data);
             var random =  Math.floor(Math.random() * data.results.length) 
             console.log(random);
-            console.log(data.results[random].title);
+            //console.log(data.results[random].title);
             displayMovie(data.results[random]);
         })
         .catch(function(error){
@@ -77,10 +77,28 @@ var searchMovie = function (genreId) {
 
 
 var displayMovie = function(data){
-
-
+ 
+    
+    
     posterEl.innerHTML = "<img src='https://image.tmdb.org/t/p/original" + data.poster_path +  "' alt= 'poster-path' class='posterImg'>"
+    movieContentEl.textContent= "";
+    var title = document.createElement("li");
+    var overview = document.createElement("li");
+    var date = document.createElement("li");
+    var rating = document.createElement("li");
 
+    title.textContent = data.title;
+    overview.textContent = data.overview;
+    date.textContent = data.release_date;
+    rating.textContent = data.vote_average;
+
+    if(posterEl){
+        movieContentEl.appendChild(title);
+        movieContentEl.appendChild(overview);
+        movieContentEl.appendChild(date);
+        movieContentEl.appendChild(rating);
+    }
+  
     
 }
 

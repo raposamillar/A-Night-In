@@ -1,7 +1,7 @@
 var drinkCategoryEl = document.querySelector(".drink-category");
-var ingredientEl = document.querySelector(".dropdown-content");
+var ingredientEl = document.querySelector("#drink-list");
 var outputContainterEl = document.querySelector(".output-container");
-var shuffleBtnEl = document.querySelector(".random-btn");
+var shuffleBtnEl = document.querySelector(".drinks-btn");
 var buttonContent = document.querySelector(".button-content");
 var ingredientContainerEl = document.querySelector(".ing-content");
 
