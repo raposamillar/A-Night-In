@@ -59,7 +59,41 @@
             </div>
             
             <div class="column is-6 has-background-primary">
-sfsdfsdf
+              <div class="column is-6 movie-category dropdown"> <!-- add "is-hoverable" to see dropdown items-->
+                <div class="dropdown-trigger">
+                  <button class="category-btn button" aria-haspopup="true" aria-controls="dropdown-menu">
+                    <span class="button-content-2 column is-11">Choose your genre</span>
+                    <span class="icon is-small">
+                        <ion-icon name="chevron-down-outline"></ion-icon>  
+                    </span>
+                  </button>
+                </div>
+                <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                  <div class="dropdown-content" id ="genre-list">
+                    <p class="dropdown-item">
+                      Action
+                    </p>
+                    <p class="dropdown-item">
+                      Adventure
+                    </p>
+                    <p class="dropdown-item">
+                      Animation
+                    </p>
+                    <p class="dropdown-item">
+                      Comedy
+                    </p>
+                    <p class="dropdown-item">
+                        Crime
+                    </p>
+                    <p class="dropdown-item">
+                        Documentary
+                    </p>
+                    <p class="dropdown-item">
+                        Drama
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
             <button class="random-btn button">Shuffle</button>
             <div class="output-container column is-6">
@@ -78,5 +112,6 @@ sfsdfsdf
     <!-- <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./assets/js/script.js"></script>
+    <script src = "./assets/js/movie-script.js"></script>
 </body>
 </html>
