@@ -88,6 +88,7 @@ var searchDrinkId = function (buttonContent) {
                                     img.classList = "drink-image";
                                     img.innerHTML = "<img src='" + data.drinks[j].strDrinkThumb + "' alt='" + data.drinks[j].idDrink  + "' class='drinkImg'>";
                                     outputContainterEl.appendChild(img);
+                                    console.log("haha ",document.getElementsByTagName('img')[k].getAttribute('alt'));
                                 }
                             }
 
@@ -101,9 +102,11 @@ var searchDrinkId = function (buttonContent) {
                     }
                         
                         console.log(arrayMatch(drinkArray,apiArray))
+                       
                         
                     }
-                }
+                } 
+                document.querySelector(".drink-image").addEventListener('click', getId);
                 
                 
             })
@@ -185,7 +188,7 @@ var displayIngredient = function(data){
     drinkInstruction.classList = "drink-instruction"
     drinkInstruction.textContent = data.drinks[0].strInstructions
     ingredientContainerEl.appendChild(drinkInstruction)
-    console.log(data)
+    console.log(data);
 }
 
 
@@ -195,9 +198,14 @@ var shuffleDrink = function (event){
 }
 
 
+function getId(event){
+    var imageId = event.target.getAttribute('alt');
+    console.log(imageId);
+
+}
 
 
-//document.querySelector(".drink-image").addEventListener('click', drinkDescription);
+
 shuffleBtnEl.addEventListener("click", shuffleDrink);
 drinkCategoryEl.addEventListener("click", drinkCategory);
 ingredientEl.addEventListener("click", selectIngredient);
