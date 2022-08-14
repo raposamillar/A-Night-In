@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 p:hover{
     cursor: pointer;
     background-color: rgb(239, 237, 237);
@@ -17,31 +23,51 @@ p:hover{
 }
 #family {
     text-align: center;
+    height: 100%;
 }
 
-header {
-    width:auto; 
-    text-align: center;
-    display: flex;
-    background-color: yellow;
-    
-}
-
-header nav {
-    float: right;
-    margin: 7px 0;
-}
-
-header h1 {
-    display: flex;
-    font-size: 32px;
-    font-weight: bold;
+header{
+    background:yellow;
+    color:black;
+    padding:15px 15px 0 15px;
+    width:100%;
     font-family: "baloo 2";
-}
+    font-weight: bold;
+    }
+    
+    header h1{
+    margin:0;
+    display:inline;
+    font-size: 32px;
+    }
+    
+    header, nav {
+    display:inline-block;
+    }
+    
+    nav {
+    float:right;
+    }
+    
+    nav ul{ 
+    margin:0;
+    display:inline;
+    padding:0 0 0 15px;
+    }
+    
+    nav ul li{
+    background:black;
+    color:white;
+    display:inline-block;
+    list-style:none;
+    padding:5px 15px;
+    }
 
-header nav ul li {
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    justify-content: right;
-}
+    footer{
+        background:yellow;
+        color:black;
+        padding:15px 15px 0 15px;
+        width:100%;
+        font-family: "baloo 2";
+        font-weight: bold;
+    }
