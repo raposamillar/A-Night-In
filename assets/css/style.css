@@ -6,3 +6,42 @@ p:hover{
 .category-btn {
     width: 100%;
 }
+
+.home-button {
+    align-items: center;
+}
+
+#adult {
+    text-align: center;
+    
+}
+#family {
+    text-align: center;
+}
+
+header {
+    width:auto; 
+    text-align: center;
+    display: flex;
+    background-color: yellow;
+    
+}
+
+header nav {
+    float: right;
+    margin: 7px 0;
+}
+
+header h1 {
+    display: flex;
+    font-size: 32px;
+    font-weight: bold;
+    font-family: "baloo 2";
+}
+
+header nav ul li {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    justify-content: right;
+}

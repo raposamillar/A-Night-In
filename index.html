@@ -6,8 +6,11 @@
         <title>A Night In</title>
         <meta name="description" content="An application to help people find their favourite movie and drink pairings.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Baloo+2&family=Montserrat:wght@500&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./assets/css/style.css">
     </head>
     <body>
         <header>
@@ -16,30 +19,31 @@
                 <ul>
                     <li>About Us</li>
                     <li>References</li>
-                   
                 </ul>
             </nav>
         </header>
-
-
-        <main class="main-container">
-
-            <div class="split-left">
-                <h2 class="title-left"></h2>
-                <h2>Family</h2>
-                <a href="./family-page.html"></a>
-                <button class="button">Enter</button>
-            </div>
-
-            <div class="split-right">
-                <h2 class="title-right"></h2>
-                <h2>19+</h2>
-                <a href="./adult-page.html"></a>
-                <button class="button">Enter</button>
-            </div>
-
-            
+        
+        <main>
+            <div class="columns is-marginless is-flex-wrap-wrap">
+                <div id="family" class="column is-6 split-left has-background-primary">
+                    <h2 class="title-left"></h2>
+                    <h2>Family</h2>
+                    <p> <img src="./assets/images/InTheEarth035.jpeg" alt="randomimage"></p>
+                    <a href="./family-page.html"></a>
+                    <button class="home-button">Enter</button>
+                </div>
+                <div id="adult" class="column is-6 split-right has-background-link">
+                    <h2 class="title-right"></h2>
+                    <h2>Adults</h2>
+                    <p> <img src="./assets/images/InTheEarth035.jpeg" alt="randomimage"></p>
+                    <a href="./adult-page.html"></a>
+                    <button class="home-button">Enter</button>
+                </div>
+            </div>           
         </main>
+        <footer>
+            Done by group 6 Source the MovieDB and the Cocktail DB
+        </footer>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="./assets/js/script.js"></script>
     </body>
