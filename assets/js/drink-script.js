@@ -77,32 +77,26 @@ var displayIngredient = function(data){
     var drinkName = document.createElement("li");
     drinkName.classList = "drink-name"
     drinkName.textContent = data.drinks[0].strDrink
-    var drinkType = document.createElement("li");
-    drinkType.classList = "drink-type"
-    drinkType.textContent = data.drinks[0].strAlcoholic
-    ingredientContainerEl.appendChild(drinkName, drinkType)
-    ingredientContainerEl.appendChild(drinkType)
+    ingredientContainerEl.appendChild(drinkName)
 
     for (var i = 0; i < 15; i++) {
         var arry = [data.drinks[0].strIngredient1,data.drinks[0].strIngredient2,data.drinks[0].strIngredient3,data.drinks[0].strIngredient4,data.drinks[0].strIngredient6,data.drinks[0].strIngredient7,data.drinks[0].strIngredient8,data.drinks[0].strIngredient9,data.drinks[0].strIngredient10,data.drinks[0].strIngredient11,data.drinks[0].strIngredient12,data.drinks[0].strIngredient13,data.drinks[0].strIngredient14,data.drinks[0].strIngredient15];
         var arry1 = [data.drinks[0].strMeasure1,data.drinks[0].strMeasure2,data.drinks[0].strMeasure3,data.drinks[0].strMeasure4,data.drinks[0].strMeasure6,data.drinks[0].strMeasure7,data.drinks[0].strMeasure8,data.drinks[0].strMeasure9,data.drinks[0].strMeasure10,data.drinks[0].strMeasure11,data.drinks[0].strMeasure12,data.drinks[0].strMeasure13,data.drinks[0].strMeasure14,data.drinks[0].strMeasure15];
         
-        if (arry1[i]){
-            var drinkMeasure = document.createElement("li");
-            drinkMeasure.classList = "drink-measure"
-            drinkMeasure.textContent = "Measure: " + arry1[i]
-            ingredientContainerEl.appendChild(drinkMeasure)
-        }
         if (arry[i]){
             var drinkIngredient = document.createElement("li");
             drinkIngredient.classList = "drink-ingredient"
-            drinkIngredient.textContent = "Ingredient: " + arry[i]
+            drinkIngredient.textContent =arry1[i] + " - " + arry[i]
             ingredientContainerEl.appendChild(drinkIngredient)
 
         }
-    
 
     }
+
+    var drinkInstruction = document.createElement("li");
+    drinkInstruction.classList = "drink-instruction"
+    drinkInstruction.textContent = data.drinks[0].strInstructions
+    ingredientContainerEl.appendChild(drinkInstruction)
     console.log(data)
 }
 
