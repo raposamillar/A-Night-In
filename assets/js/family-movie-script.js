@@ -41,21 +41,45 @@ var searchMovieGenre = function (buttonContent2) {
 
 };
 
+var genreId = ""
+
 var checkGenre = function(check){
     var genre = buttonContent2.textContent.trim();
     var genreCheck = check.findIndex(item=>genre===item.name);
-    console.log(genreCheck);
+    // console.log(genreCheck);
     console.log(check[genreCheck].id);
-    var genreId = check[genreCheck].id;
-
-    searchMovie(genreId);
-
+    genreId = check[genreCheck].id;
+    movieResults(genreId);
 }
 
-// var rand = ""
-var searchMovie = function (genreId) {
-    var random1 =  Math.floor(Math.random() * 50)+1
-    var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=popularity.desc&page="+ random1 + "&with_genres=10751&with_genres=" + genreId +"&certification_country=CA&certification.lte=PG&certification.lte=PG-13";
+ var movieResults = function (genreId) {
+    var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=popularity.desc&with_genres=" + genreId +"&language=en&certification_country=US&certification.lte=PG";
+    fetch (apiUrl)
+        .then(function(response){
+            if (!response.ok) {
+                console.log("Failed to call API");
+            }
+            return response.json()
+        })
+        .then(function(data) {
+            // console.log("it worked")
+            searchMovie(genreId, data.total_pages)
+            console.log("TOTALPAGE IS: "+ data.total_pages)
+
+        })
+        .catch(function(error){
+            console.log("error message")
+        });
+
+};
+
+
+var searchMovie = function (genreId, rand) {
+    console.log("genreid is: "+genreId)
+    console.log("rand number is :" +rand)
+    var random1 =  Math.floor(Math.random() * rand)
+    console.log(random1)
+    var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=popularity.desc&page=" + random1 + "&with_genres=" + genreId + "&language=en&certification_country=US&certification.lte=PG";
     fetch (apiUrl)
         .then(function(response){
             if (!response.ok) {
@@ -71,9 +95,9 @@ var searchMovie = function (genreId) {
             displayMovie(data.results[random]);
 
         })
-        // .catch(function(error){
-        //     console.log("error message")
-        // });
+        .catch(function(error){
+            console.log("error message")
+        });
 
 };
 
@@ -85,6 +109,7 @@ var displayMovie = function(data){
  
     
     console.log("data is",data);
+    // add if statments to check if poster is null.
     posterEl.innerHTML = "<img src='https://image.tmdb.org/t/p/original" + data.poster_path +  "' alt= 'poster-path' class='posterImg'>"
     movieContentEl.textContent= "";
     var title = document.createElement("li");
