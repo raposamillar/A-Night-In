@@ -4,6 +4,8 @@ var outputContainterEl = document.querySelector(".output-container");
 var shuffleBtnEl = document.querySelector(".drinks-btn");
 var buttonContent = document.querySelector(".button-content");
 var ingredientContainerEl = document.querySelector(".ing-content");
+var ingredientImgEl = document.querySelector(".ingredients");
+var drinkIdListEl = document.querySelector(".drink-id-list");
 
 
 // var test2El = document.querySelector(".test")
@@ -14,10 +16,10 @@ var Coffee = [12770,12780,12782,12784];
 var Chocolate = [12730,12732,12734,12736,12738,12746,12748,12750];
 var Lassi = [12690,12698,12696,12692,12694];
 
-var totalDrinks = [{name: "Punch", id: [12862,12890,12954,13032]},
-{name:"Smoothie", id :[12710,12708,12712,12720,12714,12716,12718]},
-{name: "Shake", id:[12654,12656,12658,12674]},
-{name: "Coffee", id:Coffee},
+var totalDrinks = [{name: "Punch", id: Punch},
+{name:"Smoothie", id: Smoothie},
+{name: "Shake", id: Shake},
+{name: "Coffee", id: Coffee},
 {name: "Chocolate", id:Chocolate},
 {name: "Lassi", id: Lassi}];
 
@@ -37,25 +39,7 @@ var selectIngredient = function (event) {
     // searchDrinkIngredient(buttonContent.textContent)
 }
 
-// var searchDrinkIngredient = function (buttonContent) {
-//     var apiUrl = "" + buttonContent
-//     fetch (apiUrl)
-//         .then(function(response){
-//             if (!response.ok) {
-//                 console.log("Failed to call API");
-//             }
-//             return response.json()
-//         })
-//         .then(function(data) {
-//             console.log(data);
-//             searchDrinkId(data);
-
-//         })
-//         .catch(function(error){
-//             console.log("error message")
-//         });
-
-// };
+var arraryFetch = []
 
 var searchDrinkId = function (buttonContent) {
     outputContainterEl.textContent="";
@@ -69,46 +53,10 @@ var searchDrinkId = function (buttonContent) {
                 return response.json()
             })
             .then(function(data){
-               
-                for(var i= 0; i < totalDrinks.length; i++){
-                    if(buttonContent == totalDrinks[i].name){
-                        var drinkArray =  totalDrinks[i].id;
-                        var apiArray = data.drinks;
-                        function arrayMatch(){
-                            arr= [];
-                        
-                        for(var k = 0; k < drinkArray.length; k++){
-                            for(var j=0; j < apiArray.length; j++){
-                                if(drinkArray[k]==apiArray[j].idDrink){
-                                    console.log("it is");
-                                    arr.push(drinkArray[k]);
-                                    console.log(arr);
-                                    //debugger;
-                                    var img = document.createElement("p");
-                                    img.classList = "drink-image";
-                                    img.innerHTML = "<img src='" + data.drinks[j].strDrinkThumb + "' alt='" + data.drinks[j].idDrink  + "' class='drinkImg'>";
-                                    outputContainterEl.appendChild(img);
-                                    console.log("haha ",document.getElementsByTagName('img')[k].getAttribute('alt'));
-                                }
-                            }
-
-                            // console.log(drinkArray[i]);
-                            // console.log(data.drinks[i].idDrink);
-                        
-                            //var idCheck = drinkArray[i].findIndex(item=>data.drinks[i].idDrink == item );
-                            //console.log(idCheck);
-                        }
-                        return arr;
-                    }
-                        
-                        console.log(arrayMatch(drinkArray,apiArray))
-                       
-                        
-                    }
-                } 
-                document.querySelector(".drink-image").addEventListener('click', getId);
-                
-                
+                console.log(data)
+                arraryFetch = []
+                arraryFetch.push(data.drinks)
+                findDrinkId(buttonContent,arraryFetch); 
             })
 
     
@@ -128,7 +76,35 @@ var searchDrinkId = function (buttonContent) {
 
         }
 
-    
+var findDrinkId = function (buttonContent, data){
+    console.log(data)
+    outputContainterEl.setAttribute("style", "display:block")
+    for(var i= 0; i < totalDrinks.length; i++){
+        if(buttonContent == totalDrinks[i].name){
+            var drinkArray =  totalDrinks[i].id;
+            var apiArray = data[0];
+            console.log(apiArray[3].strDrinkThumb)
+            // arrayMatch()
+            // function arrayMatch(){
+            //     arr= [];
+            for(var k = 0; k < drinkArray.length; k++){
+                for(var j=0; j < apiArray.length; j++){
+                    if(drinkArray[k]==apiArray[j].idDrink){
+                        // console.log("it is");
+                        // arr.push(drinkArray[k]);
+                        var img = document.createElement("li");
+                        img.setAttribute("style", "list-style: none")
+                        img.classList = "drink-image";
+                        img.innerHTML = "<img src='" + apiArray[j].strDrinkThumb + "' alt='" + apiArray[j].idDrink  + "' class='drinkImg'>";
+                        outputContainterEl.appendChild(img);
+                    }
+                }
+            }
+            // return arr;
+        }
+        }
+    } 
+   
         
     
    
@@ -141,23 +117,24 @@ var searchDrinkId = function (buttonContent) {
     // outputContainterEl.append(drinkOutputEl);
     // ingredientsContent(drinkId)
 
-    function ingredientsContent (drinkId){
-        var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkId
-        fetch (apiUrl)
-            .then(function(response){
-                if (!response.ok){
-                    console.log("API call failed")
-                }
-                return response.json()
-            })
-            .then(function(data){
-                displayIngredient(data)
-            })
-    };
+var ingredientsContent = function (drinkId){
+    var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkId
+    fetch (apiUrl)
+        .then(function(response){
+            if (!response.ok){
+                console.log("API call failed")
+            }
+            return response.json()
+        })
+        .then(function(data){
+            displayIngredient(data)
+        })
+};
 
 
 
 var displayIngredient = function(data){
+
     ingredientContainerEl.textContent=""
     console.log(data.drinks[0].strIngredient1)
     console.log(data.drinks[0].strMeasure1)
@@ -167,7 +144,7 @@ var displayIngredient = function(data){
     var drinkName = document.createElement("li");
     drinkName.classList = "drink-name"
     drinkName.textContent = data.drinks[0].strDrink
-    outputContainterEl.appendChild(drinkOutputEl);
+    ingredientImgEl.appendChild(drinkOutputEl);
     ingredientContainerEl.appendChild(drinkName)
 
     for (var i = 0; i < 15; i++) {
@@ -188,11 +165,13 @@ var displayIngredient = function(data){
     drinkInstruction.classList = "drink-instruction"
     drinkInstruction.textContent = data.drinks[0].strInstructions
     ingredientContainerEl.appendChild(drinkInstruction)
+    ingredientImgEl.appendChild(ingredientContainerEl);
     console.log(data);
 }
 
 
 var shuffleDrink = function (event){
+    ingredientImgEl.textContent=""
     searchDrinkId(buttonContent.textContent);
     
 }
@@ -200,7 +179,15 @@ var shuffleDrink = function (event){
 
 function getId(event){
     var imageId = event.target.getAttribute('alt');
-    console.log(imageId);
+    if (event.target.classList.contains("drinkImg")){
+        
+        ingredientsContent(imageId);
+        outputContainterEl.setAttribute("style", "display:none");
+        // more efficient to hide the content until the user click on the back button. 
+        // will need to add css style to class hide to display none
+        
+    }
+
 
 }
 
@@ -209,5 +196,5 @@ function getId(event){
 shuffleBtnEl.addEventListener("click", shuffleDrink);
 drinkCategoryEl.addEventListener("click", drinkCategory);
 ingredientEl.addEventListener("click", selectIngredient);
-
+outputContainterEl.addEventListener('click', getId); 
 

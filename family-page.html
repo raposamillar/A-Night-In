@@ -15,7 +15,7 @@
 
     <main>
         <div class="columns is-marginless is-flex-wrap-wrap">
-            <div class="column is-6 has-background-link">
+            <section class="column is-6 has-background-link">
                
                 <!-- dropdown start -->
 
@@ -48,23 +48,24 @@
                         <p class="dropdown-item">
                           Lassi
                         </p>
-                        
                       </div>
                     </div>
-                  </div>
-
-                    <button class="drinks-btn button">Shuffle</button>
-              <div class="output-container column is-6">
-              
-          
               </div>
+
+              <button class="drinks-btn button">Back</button>
+              <div class="output-container column is-6">
+                <ul class="drink-id-list">
+
+                </ul>
+              </div>
+
               <div class="ingredients">
                   <ul class="ing-content">
                   </ul>
               </div>
-            </div>
+            </section>
             
-            <div class="column is-6 has-background-primary">
+            <section class="column is-6 has-background-primary">
               <div class="column is-6 movie-category dropdown"> <!-- add "is-hoverable" to see dropdown items-->
                 <div class="dropdown-trigger">
                   <button class="category-btn button" aria-haspopup="true" aria-controls="dropdown-menu">
@@ -102,15 +103,15 @@
                 
               </div>
               <button class="movie-btn button ">Shuffle</button>
-              <div class="poster column is-6">
+
+              <section class="list-of-movies"></section>
               
-          
-              </div>
               <div class="movie-description">
+                <div class="poster column is-6"></div>
                   <ul class="movie-content">
                   </ul>
               </div>
-            </div>
+            </section>
             
         </div>
     </main>
