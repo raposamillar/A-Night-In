@@ -30,8 +30,12 @@ p:hover{
 
 body {
     width: 100%;
-    height: 100vh;
-    background-image: url('../images/starry-night-1.jpg');
+    height: 100%vh;
+    background-color: #0c1e2f;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+
 }
 
 header {
@@ -73,11 +77,20 @@ nav ul li {
     padding:5px 15px;
 }
 
+.carousel {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+
 footer {
-    background:yellow;
-    color:black;
+    background-image: url('../images/starry-night-1.jpg');
+    background-color: #314E70;
+    color: #fff;
     padding:15px 15px 0 15px;
     width:100%;
-    font-family: "baloo 2";
+    font-family: "Baloo 2";
     font-weight: bold;
+    text-align: center;
 }
