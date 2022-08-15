@@ -1,4 +1,4 @@
-var buttons = document.querySelector("[data-carousel-button]")
+/*var buttons = document.querySelector("[data-carousel-button]")
 
 buttons.forEach(button => {
     button.addEventListener("click", () => {
