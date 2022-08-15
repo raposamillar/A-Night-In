@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;600;700&family=Pacifico&family=Permanent+Marker&family=Poppins:wght@400;600;700&family=Rubik+Dirt&family=Rubik+Distressed&family=Rubik+Marker+Hatch&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -26,48 +28,56 @@ p:hover{
     height: 100%;
 }
 
-header{
+body {
+    width: 100%;
+    height: 100vh;
+    background-image: url('../images/starry-night-1.jpg');
+}
+
+header {
+    color:#fff;
+    padding:15px 15px 0 15px;
+    width:100%;
+    font-weight: bold;
+    font-size: 32px;
+    background-image: url('../images/starry-night-1.jpg');
+
+}
+    
+header h1 {
+    margin:0;
+    display:inline;
+    font-size: 75px;
+    font-family: 'Permanent Marker', 'Brush Script MT', 'serif';
+}
+    
+header, nav {
+    display:inline-block;
+}
+    
+nav {
+    float:right;
+}
+    
+nav ul{ 
+    margin:0;
+    display:inline;
+    padding:0 0 0 15px;
+}
+    
+nav ul li {
+    background:black;
+    color:white;
+    display:inline-block;
+    list-style:none;
+    padding:5px 15px;
+}
+
+footer {
     background:yellow;
     color:black;
     padding:15px 15px 0 15px;
     width:100%;
     font-family: "baloo 2";
     font-weight: bold;
-    }
-    
-    header h1{
-    margin:0;
-    display:inline;
-    font-size: 32px;
-    }
-    
-    header, nav {
-    display:inline-block;
-    }
-    
-    nav {
-    float:right;
-    }
-    
-    nav ul{ 
-    margin:0;
-    display:inline;
-    padding:0 0 0 15px;
-    }
-    
-    nav ul li{
-    background:black;
-    color:white;
-    display:inline-block;
-    list-style:none;
-    padding:5px 15px;
-    }
-
-    footer{
-        background:yellow;
-        color:black;
-        padding:15px 15px 0 15px;
-        width:100%;
-        font-family: "baloo 2";
-        font-weight: bold;
-    }
+}
