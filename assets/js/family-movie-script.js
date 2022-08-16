@@ -4,10 +4,14 @@ var buttonContent2 = document.querySelector(".button-content-2");
 var posterEl = document.querySelector(".poster");
 var movieDescriptionEl = document.querySelector(".movie-description");
 var movieContentEl = document.querySelector(".movie-content");
-var shuffleBtn2El = document.querySelector(".movie-btn");
+var backButtonEl = document.querySelector(".back-button");
+var shuffleButtonEl = document.querySelector(".shuffle-button");
+var saveButtonEl = document.querySelector(".save-button");
+var loadButtonEl = document.querySelector(".load-button");
 var listOfMoviesEl = document.querySelector(".list-of-movies");
 var arrList = []
 var genreId = ""
+var movieStorage = []
 
 var movieCategory = function (event) {
     event.stopPropagation();
@@ -58,6 +62,7 @@ var checkGenre = function(check){
         })
         .then(function(data) {
             searchMovie(genreId, data.total_pages)
+            console.log("genre" + genreId)
             console.log("TOTALPAGE IS: "+ data.total_pages)
 
         })
@@ -69,7 +74,7 @@ var checkGenre = function(check){
 
 
 var searchMovie = function (genreId, totalPage) {
-    var page =  Math.floor(Math.random() * 20)
+    var page =  Math.floor((Math.random() * totalPage)+1)
     var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=primary_release_date.desc&page=" + page + "&with_genres=" + genreId + "&language=en&certification_country=US&certification.lte=PG&certification.gte=G&with_original_language=en";
     fetch (apiUrl)
         .then(function(response){
@@ -80,6 +85,7 @@ var searchMovie = function (genreId, totalPage) {
         })
         .then(function(data) {
             arrList = []
+            console.log(data)
             for (var i = 0; i < data.results.length; i++){
                 if(data.results[i].poster_path){
                     arrList.push(data.results[i])
@@ -87,11 +93,10 @@ var searchMovie = function (genreId, totalPage) {
                 }
             }
             displayMovieOptions (arrList)
-
         })
-        .catch(function(error){
-            console.log("error message")
-        });
+        // .catch(function(error){
+        //     console.log("error message")
+        // });
 
 };
 
@@ -99,6 +104,9 @@ var searchMovie = function (genreId, totalPage) {
 
 var displayMovieOptions = function(data){
     console.log(data)
+    listOfMoviesEl.setAttribute("style", "display:block")
+    movieDescriptionEl.setAttribute("style", "display:none")
+
   listOfMoviesEl.textContent=""
     var listRange = Math.floor(Math.random () * ((data.length-5)+1))
     console.log(listRange)
@@ -110,9 +118,6 @@ var displayMovieOptions = function(data){
         images.setAttribute("style", "height: 250px")
         listOfMoviesEl.appendChild(images)
     }
-
-    
-
 }
 
 var displayMovie = function(event){
@@ -121,13 +126,12 @@ var displayMovie = function(event){
     var poster = event.target.getAttribute("alt");
     for (var i = 0; i < arrList.length; i++) {
         if (arrList[i].id==poster){
-            posterEl.innerHTML = "<img src='https://image.tmdb.org/t/p/original" + arrList[i].poster_path +  "' alt= 'poster-path' class='posterImg'>"
+            posterEl.innerHTML = "<img src='https://image.tmdb.org/t/p/original" + arrList[i].poster_path +  "' alt='" + arrList[i].id + "' class='posterImg'>"
             movieContentEl.textContent= "";
             var title = document.createElement("li");
             var overview = document.createElement("li");
             var date = document.createElement("li");
             var rating = document.createElement("li");
-        
             title.textContent = arrList[i].title;
             overview.textContent = arrList[i].overview;
             date.textContent = arrList[i].release_date;
@@ -148,8 +152,68 @@ var previousResults = function (){
     listOfMoviesEl.setAttribute("style", "display:block")
 }
 
+
+var SaveLocalStorage = function (event){
+    var movieId = posterEl.children[0].getAttribute("alt")
+    var searchCheck = movieStorage.findIndex(item => movieId == item);
+    if (searchCheck == -1){
+    movieStorage.push(movieId)
+    console.log(movieId)
+    localStorage.setItem("movieId", JSON.stringify(movieStorage));
+    }
+}
+
+var loadLocalStorage = function (event){
+    var history = JSON.parse(localStorage.getItem("movieId"));
+    console.log("history is : ", history)
+    listOfMoviesEl.textContent=""
+    
+    for (var i = 0; i < history.length; i++){
+        loadSavedMovies(history[i])
+        movieStorage.push(history[i])
+    }
+
+}
+
+var loadSavedMovies = function (movieId){
+    var apiUrl = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=93b9a9ec523abc563cc471bcb1fbab4b&language=en-US";
+    fetch(apiUrl)
+        .then(function(response){
+            if (!response.ok){
+                console.log("failed to call")
+            }
+            return response.json()
+        })
+        .then(function(data){
+            displaySavedMovieOptions(data)
+        })
+        // .catch(function(error){
+        //     console.log("error")
+        // })
+
+}
+
+var displaySavedMovieOptions = function(data){
+    console.log(data)
+    listOfMoviesEl.setAttribute("style", "display:block")
+    movieDescriptionEl.setAttribute("style", "display:none")
+
+        var images = document.createElement("img")
+        images.setAttribute("src" , "https://image.tmdb.org/t/p/original"+data.poster_path)
+        images.setAttribute("alt", data.id)
+        images.setAttribute("style", "width: 250px")
+        images.setAttribute("style", "height: 250px")
+        listOfMoviesEl.appendChild(images)
+        arrList.push(data)
+}
+
+
+
 listOfMoviesEl.addEventListener("click", displayMovie)
-// shuffleBtn2El.addEventListener("click",searchMovieGenre);
-shuffleBtn2El.addEventListener("click", previousResults);
+// backButtonEl.addEventListener("click",searchMovieGenre);
+backButtonEl.addEventListener("click", previousResults);
+shuffleButtonEl.addEventListener("click", searchMovieGenre);
 genreEl.addEventListener("click",selectGenre);
 movieCategoryEl.addEventListener("click", movieCategory);
+saveButtonEl.addEventListener("click", SaveLocalStorage);
+loadButtonEl.addEventListener("click", loadLocalStorage);

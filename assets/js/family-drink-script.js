@@ -1,11 +1,15 @@
 var drinkCategoryEl = document.querySelector(".drink-category");
 var ingredientEl = document.querySelector("#drink-list");
 var outputContainterEl = document.querySelector(".output-container");
-var shuffleBtnEl = document.querySelector(".drinks-btn");
+var backBtnEl = document.querySelector(".back-btn");
+var shuffleBtnEl = document.querySelector(".shuffle-btn");
 var buttonContent = document.querySelector(".button-content");
 var ingredientContainerEl = document.querySelector(".ing-content");
 var ingredientImgEl = document.querySelector(".ingredients");
 var drinkIdListEl = document.querySelector(".drink-id-list");
+var drinkOutputEl = document.querySelector(".drinkImgContainer");
+var arrayFetch = [];
+var drinkStorage = [];
 
 
 // var test2El = document.querySelector(".test")
@@ -39,7 +43,7 @@ var selectIngredient = function (event) {
     // searchDrinkIngredient(buttonContent.textContent)
 }
 
-var arraryFetch = []
+var arrayFetch = []
 
 var searchDrinkId = function (buttonContent) {
     outputContainterEl.textContent="";
@@ -54,9 +58,9 @@ var searchDrinkId = function (buttonContent) {
             })
             .then(function(data){
                 console.log(data)
-                arraryFetch = []
-                arraryFetch.push(data.drinks)
-                findDrinkId(buttonContent,arraryFetch); 
+                arrayFetch = []
+                arrayFetch.push(data.drinks)
+                findDrinkId(buttonContent,arrayFetch); 
             })
 
     
@@ -79,6 +83,7 @@ var searchDrinkId = function (buttonContent) {
 var findDrinkId = function (buttonContent, data){
     console.log(data)
     outputContainterEl.setAttribute("style", "display:block")
+    ingredientImgEl.setAttribute("style", "display:none")
     for(var i= 0; i < totalDrinks.length; i++){
         if(buttonContent == totalDrinks[i].name){
             var drinkArray =  totalDrinks[i].id;
@@ -136,11 +141,12 @@ var ingredientsContent = function (drinkId){
 var displayIngredient = function(data){
 
     ingredientContainerEl.textContent=""
+    outputContainterEl.setAttribute("style", "display:none");
+    ingredientImgEl.setAttribute("style", "display:block")
     console.log(data.drinks[0].strIngredient1)
     console.log(data.drinks[0].strMeasure1)
     var drinkImg = data.drinks[0].strDrinkThumb;
-    var drinkOutputEl = document.createElement("div");
-    drinkOutputEl.innerHTML = "<img src='" + drinkImg + "' alt='qwerty' class='drinkImg'>"
+    drinkOutputEl.innerHTML = "<img src='" + drinkImg + "' alt='" + data.drinks[0].idDrink + "' class='drinkImg'>"
     var drinkName = document.createElement("li");
     drinkName.classList = "drink-name"
     drinkName.textContent = data.drinks[0].strDrink
@@ -170,15 +176,17 @@ var displayIngredient = function(data){
 }
 
 
-var shuffleDrink = function (event){
-    ingredientImgEl.textContent=""
-    searchDrinkId(buttonContent.textContent);
+var previousDrink = function (event){
+    outputContainterEl.setAttribute("style", "display:block");
+    ingredientImgEl.setAttribute("style", "display:none")
+   
     
 }
 
 
 function getId(event){
     var imageId = event.target.getAttribute('alt');
+    console.log("myid is:" +imageId)
     if (event.target.classList.contains("drinkImg")){
         
         ingredientsContent(imageId);
@@ -191,10 +199,62 @@ function getId(event){
 
 }
 
+var SaveLocalStorage = function (event){
+    var drinkId = drinkOutputEl.children[0].getAttribute("alt")
+    var searchCheck = drinkStorage.findIndex(item => drinkId == item);
+    if (searchCheck == -1){
+    drinkStorage.push(drinkId)
+    localStorage.setItem("drinkId", JSON.stringify(drinkStorage));
+    }
+}
+
+var loadLocalStorage = function (event){
+    var drinkhistory = JSON.parse(localStorage.getItem("drinkId"));
+    console.log("history is : ", drinkhistory)
+    outputContainterEl.textContent=""
+    
+    for (var i = 0; i < drinkhistory.length; i++){
+        loadSavedDrinks(drinkhistory[i])
+        drinkStorage.push(drinkhistory[i])
+    }
+
+}
+
+var loadSavedDrinks = function (drinkId){
+    var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkId
+    fetch (apiUrl)
+        .then(function(response){
+            if (!response.ok){
+                console.log("API call failed")
+            }
+            return response.json()
+        })
+        .then(function(data){
+            displaySavedDrinkOptions(data)
+        })
+};
 
 
-shuffleBtnEl.addEventListener("click", shuffleDrink);
+var displaySavedDrinkOptions = function(data){
+    console.log(data)
+    ingredientImgEl.setAttribute("style", "display:none")
+    outputContainterEl.setAttribute("style", "display:block")
+    for (var i = 0; i < data.drinks.length; i++){
+        var img = document.createElement("li");
+        img.setAttribute("style", "list-style: none")
+        img.classList = "drink-image";
+        img.innerHTML = "<img src='" + data.drinks[i].strDrinkThumb + "' alt='" + data.drinks[i].idDrink  + "' class='drinkImg'>";
+        outputContainterEl.appendChild(img);
+    }
+   
+    
+}
+
+
+backBtnEl.addEventListener("click", previousDrink);
+shuffleBtnEl.addEventListener("click", findDrinkId);
 drinkCategoryEl.addEventListener("click", drinkCategory);
 ingredientEl.addEventListener("click", selectIngredient);
 outputContainterEl.addEventListener('click', getId); 
-
+saveButtonEl.addEventListener("click", SaveLocalStorage);
+loadButtonEl.addEventListener("click", loadLocalStorage);
