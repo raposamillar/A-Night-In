@@ -13,7 +13,7 @@ The adult/19+ access only portal functions in a similar manner, albeit with fewe
 URL: https://raposamillar.github.io/A-Night-In/
 
 ## Technologies Used
-Languages: HTML, CSS, JavaScript, and jQuery <br>
+Languages: HTML, CSS, JavaScript<br>
 CSS Framework: Bulma <br>
 API Keys: The CocktailDB and The MovieDB
 
