@@ -166,3 +166,8 @@ footer {
     text-align: center;
 }
 
+.logos {
+    width: 25%;
+    justify-content: center;
+}
+
