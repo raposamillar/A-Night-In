@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>19+</title>
+    <title>Family</title>
 </head>
 <body>
     <header>
-        <h1 id="title">Find your pair</h1>
+        <h1 id="title">Find your pair(adult)</h1>
     </header>
 
     <main>
         <div class="columns is-marginless is-flex-wrap-wrap">
-            <div class="column is-6 has-background-link">
+            <section class="column is-6 has-background-link">
                
                 <!-- dropdown start -->
 
@@ -31,42 +31,43 @@
                     <div class="dropdown-menu" id="dropdown-menu" role="menu">
                       <div class="dropdown-content" id="drink-list">
                         <p class="dropdown-item">
-                          Gin
+                          Vodka
                         </p>
                         <p class="dropdown-item">
-                          Brandy
+                          Gin
                         </p>
                         <p class="dropdown-item">
                           Whiskey
                         </p>
                         <p class="dropdown-item">
-                          Rum
+                          Tequila
                         </p>
                         <p class="dropdown-item">
-                            Tequila
+                          Chocolate
                         </p>
                         <p class="dropdown-item">
-                            Vodka
-                        </p>
-                        <p class="dropdown-item">
-                            Absinthe
+                          Lassi
                         </p>
                       </div>
                     </div>
-                  </div>
-
-                    <button class="drinks-btn button">Shuffle</button>
-              <div class="output-container column is-6">
-              
-          
               </div>
+
+              <button class="drinks-btn drink-back-btn">Back</button>
+              <button class="drinks-btn drink-shuffle-btn">Shuffle</button>
+              <div class="output-container column is-6">
+                <ul class="drink-id-list">
+
+                </ul>
+              </div>
+
               <div class="ingredients">
+                  <div class="drinkImgContainer"></div>
                   <ul class="ing-content">
                   </ul>
               </div>
-            </div>
+            </section>
             
-            <div class="column is-6 has-background-primary">
+            <section class="column is-6 has-background-primary">
               <div class="column is-6 movie-category dropdown"> <!-- add "is-hoverable" to see dropdown items-->
                 <div class="dropdown-trigger">
                   <button class="category-btn button" aria-haspopup="true" aria-controls="dropdown-menu">
@@ -103,25 +104,24 @@
                 </div>
                 
               </div>
-              <button class="movie-btn button ">Shuffle</button>
-              <div class="poster column is-6">
+              <button class="movie-btn back-button ">Back</button>
+              <button class="movie-btn shuffle-button ">Shuffle</button>
+
+              <section class="list-of-movies"></section>
               
-          
-              </div>
               <div class="movie-description">
+                <div class="poster column is-6"></div>
                   <ul class="movie-content">
                   </ul>
               </div>
-            </div>
-            
+            </section>
+            <button class="movie-btn save-button ">Save History</button>
+            <button class="movie-btn load-button ">Load History</button>
         </div>
     </main>
-
-
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <!-- <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="./assets/js/drink-script.js"></script>
-    <script src = "./assets/js/movie-script.js"></script>
+    
 </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./assets/js/adult-drink-script.js"></script>
+    <script src="./assets/js/adult-movie-script.js"></script>
 </html>

@@ -11,7 +11,7 @@ var loadButtonEl = document.querySelector(".load-button");
 var listOfMoviesEl = document.querySelector(".list-of-movies");
 var arrList = []
 var genreId = ""
-var familyMovieStorage = []
+var adultMovieStorage = []
 
 var movieCategory = function (event) {
     event.stopPropagation();
@@ -36,9 +36,9 @@ var searchMovieGenre = function (buttonContent2) {
         .then(function(data) {
             checkGenre(data.genres);
         })
-        .catch(function(error){
-            console.log("error message")
-        });
+        // .catch(function(error){
+        //     console.log("error message")
+        // });
 
 };
 
@@ -52,7 +52,7 @@ var checkGenre = function(check){
 }
 
  var movieResults = function (genreId) {
-    var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=popularity.desc&with_genres=" + genreId +"&language=en&certification_country=US&certification.lte=PG&certification.gte=G&with_original_language=en";
+    var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=primary_release_date.desc&with_genres=" + genreId + "&language=en&with_original_language=en";
     fetch (apiUrl)
         .then(function(response){
             if (!response.ok) {
@@ -61,21 +61,23 @@ var checkGenre = function(check){
             return response.json()
         })
         .then(function(data) {
+            console.log(data)
             searchMovie(genreId, data.total_pages)
             console.log("genre" + genreId)
             console.log("TOTALPAGE IS: "+ data.total_pages)
 
         })
-        .catch(function(error){
-            console.log("error message")
-        });
+        // .catch(function(error){
+        //     console.log("error message")
+        // });
 
 };
 
 
 var searchMovie = function (genreId, totalPage) {
-    var page =  Math.floor((Math.random() * totalPage)+1)
-    var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=primary_release_date.desc&page=" + page + "&with_genres=" + genreId + "&language=en&certification_country=US&certification.lte=PG&certification.gte=G&with_original_language=en";
+    var page =  Math.floor((Math.random() * 500)+1)
+    console.log("ID: " + genreId + " total page: " + page)
+    var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=primary_release_date.desc&page=" + page + "&with_genres=" + genreId + "&with_original_language=en";
     fetch (apiUrl)
         .then(function(response){
             if (!response.ok) {
@@ -155,11 +157,11 @@ var previousResults = function (){
 
 var SaveLocalStorage = function (event){
     var movieId = posterEl.children[0].getAttribute("alt")
-    var searchCheck = familyMovieStorage.findIndex(item => movieId == item);
+    var searchCheck = adultMovieStorage.findIndex(item => movieId == item);
     if (searchCheck == -1){
-    familyMovieStorage.push(movieId)
+    adultMovieStorage.push(movieId)
     console.log(movieId)
-    localStorage.setItem("movieId", JSON.stringify(familyMovieStorage));
+    localStorage.setItem("movieId", JSON.stringify(adultMovieStorage));
     }
 }
 
@@ -170,7 +172,7 @@ var loadLocalStorage = function (event){
     
     for (var i = 0; i < history.length; i++){
         loadSavedMovies(history[i])
-        familyMovieStorage.push(history[i])
+        adultMovieStorage.push(history[i])
     }
 
 }
