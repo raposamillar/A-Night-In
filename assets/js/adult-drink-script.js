@@ -22,7 +22,7 @@ var drinkCategory = function (event) {
 var selectIngredient = function (event) {   
     var ingredient = event.target.textContent.trim();
     buttonContent.textContent=ingredient;
-    console.log(ingredient);
+    // console.log(ingredient);
     searchDrinkId(buttonContent.textContent);
     // searchDrinkIngredient(buttonContent.textContent)
 }
@@ -31,7 +31,7 @@ var arrayFetch = []
 
 var searchDrinkId = function (data) {
     outputContainterEl.textContent="";
-    console.log(data)
+    // console.log(data)
     var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + data;
     fetch (apiUrl)
             .then(function(response){
@@ -41,7 +41,7 @@ var searchDrinkId = function (data) {
                 return response.json()
             })
             .then(function(data){
-                console.log(data)
+                // console.log(data)
                 arrayFetch = []
                 arrayFetch.push(data)
                 // console.log(arrayFetch)
@@ -66,8 +66,8 @@ var searchDrinkId = function (data) {
         }
 
 var findDrinkId = function (arrayFetch){
-    console.log(arrayFetch)
-    console.log(arrayFetch[0].drinks)
+    // console.log(arrayFetch)
+    // console.log(arrayFetch[0].drinks)
     drinkIdListEl.textContent="";
     outputContainterEl.setAttribute("style", "display:block")
     ingredientImgEl.setAttribute("style", "display:none")
@@ -82,7 +82,7 @@ var findDrinkId = function (arrayFetch){
         }
     } else {
         var listRange = Math.floor(Math.random () * (arrayFetch[0].drinks.length-5))
-        console.log(listRange)
+        // console.log(listRange)
         for (var i = listRange; i < listRange+5; i++){
             var img = document.createElement("li");
             img.setAttribute("style", "list-style: none")
@@ -115,8 +115,8 @@ var displayIngredient = function(data){
     ingredientContainerEl.textContent=""
     outputContainterEl.setAttribute("style", "display:none");
     ingredientImgEl.setAttribute("style", "display:block")
-    console.log(data.drinks[0].strIngredient1)
-    console.log(data.drinks[0].strMeasure1)
+    // console.log(data.drinks[0].strIngredient1)
+    // console.log(data.drinks[0].strMeasure1)
     var drinkImg = data.drinks[0].strDrinkThumb;
     drinkOutputEl.innerHTML = "<img src='" + drinkImg + "' alt='" + data.drinks[0].idDrink + "' class='drinkImg'>"
     var drinkName = document.createElement("li");
@@ -144,7 +144,7 @@ var displayIngredient = function(data){
     drinkInstruction.textContent = data.drinks[0].strInstructions
     ingredientContainerEl.appendChild(drinkInstruction)
     ingredientImgEl.appendChild(ingredientContainerEl);
-    console.log(data);
+    // console.log(data);
 }
 
 
@@ -158,7 +158,7 @@ var previousDrink = function (event){
 
 function getId(event){
     var imageId = event.target.getAttribute('alt');
-    console.log("myid is:" +imageId)
+    // console.log("myid is:" +imageId)
     if (event.target.classList.contains("drinkImg")){
         
         ingredientsContent(imageId);
@@ -173,23 +173,28 @@ function getId(event){
 
 var SaveLocalStorage = function (event){
     var drinkId = drinkOutputEl.children[0].getAttribute("alt")
-    var searchCheck = adultDrinkStorage.findIndex(item => drinkId == item);
-    if (searchCheck == -1){
+    var searchDrinkCheck = adultDrinkStorage.findIndex(item => drinkId == item);
+    console.log("drink check: " + searchDrinkCheck)
+    if (searchDrinkCheck == -1){
+        console.log("data saved")
     adultDrinkStorage.push(drinkId)
-    localStorage.setItem("drinkId", JSON.stringify(adultDrinkStorage));
+    localStorage.setItem("adult-drinkId", JSON.stringify(adultDrinkStorage));
+    console.log("movie id stored: " + adultDrinkStorage)
     }
 }
 
 var loadLocalStorage = function (event){
-    var drinkhistory = JSON.parse(localStorage.getItem("drinkId"));
-    console.log("history is : ", drinkhistory)
+    var drinkhistory = JSON.parse(localStorage.getItem("adult-drinkId"));
+    // console.log("drink history is : ", drinkhistory)
     outputContainterEl.textContent=""
-    
+    var searchDrinkCheck = ""
     for (var i = 0; i < drinkhistory.length; i++){
+        searchDrinkCheck = adultDrinkStorage.findIndex(item => drinkhistory[i] == item);
         loadSavedDrinks(drinkhistory[i])
+        if (searchDrinkCheck == -1){
         adultDrinkStorage.push(drinkhistory[i])
-    }
-
+    }}
+    console.log(adultDrinkStorage);
 }
 
 var loadSavedDrinks = function (drinkId){
@@ -208,7 +213,7 @@ var loadSavedDrinks = function (drinkId){
 
 
 var displaySavedDrinkOptions = function(data){
-    console.log(data)
+    // console.log(data)
     ingredientImgEl.setAttribute("style", "display:none")
     outputContainterEl.setAttribute("style", "display:block")
     for (var i = 0; i < data.drinks.length; i++){

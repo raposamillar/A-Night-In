@@ -159,19 +159,21 @@ var SaveLocalStorage = function (event){
     if (searchCheck == -1){
     familyMovieStorage.push(movieId)
     console.log(movieId)
-    localStorage.setItem("movieId", JSON.stringify(familyMovieStorage));
+    localStorage.setItem("family-movieId", JSON.stringify(familyMovieStorage));
     }
 }
 
 var loadLocalStorage = function (event){
-    var history = JSON.parse(localStorage.getItem("movieId"));
-    console.log("history is : ", history)
+    var history = JSON.parse(localStorage.getItem("family-movieId"));
+    // console.log("history is : ", history)
     listOfMoviesEl.textContent=""
-    
+    var searchMovieCheck = familyMovieStorage.findIndex(item => history[i] == item);
     for (var i = 0; i < history.length; i++){
         loadSavedMovies(history[i])
+        searchMovieCheck = familyMovieStorage.findIndex(item => history[i] == item);
+        if (searchMovieCheck == -1){
         familyMovieStorage.push(history[i])
-    }
+    }}
 
 }
 

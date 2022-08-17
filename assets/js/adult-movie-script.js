@@ -157,23 +157,27 @@ var previousResults = function (){
 
 var SaveLocalStorage = function (event){
     var movieId = posterEl.children[0].getAttribute("alt")
-    var searchCheck = adultMovieStorage.findIndex(item => movieId == item);
-    if (searchCheck == -1){
+    var searchMovieCheck = adultMovieStorage.findIndex(item => movieId == item);
+    console.log("movie check: " + searchMovieCheck)
+    if (searchMovieCheck == -1){
     adultMovieStorage.push(movieId)
-    console.log(movieId)
-    localStorage.setItem("movieId", JSON.stringify(adultMovieStorage));
+    // console.log(movieId)
+    localStorage.setItem("adult-movieId", JSON.stringify(adultMovieStorage));
+    console.log("movie id is stored: " + adultMovieStorage)
     }
 }
 
 var loadLocalStorage = function (event){
-    var history = JSON.parse(localStorage.getItem("movieId"));
-    console.log("history is : ", history)
+    var history = JSON.parse(localStorage.getItem("adult-movieId"));
+    // console.log("history is : ", history)
     listOfMoviesEl.textContent=""
-    
+    var searchMovieCheck = ""
     for (var i = 0; i < history.length; i++){
         loadSavedMovies(history[i])
+        searchMovieCheck = adultMovieStorage.findIndex(item => history[i] == item);
+        if (searchMovieCheck == -1){
         adultMovieStorage.push(history[i])
-    }
+    }}
 
 }
 
@@ -196,7 +200,7 @@ var loadSavedMovies = function (movieId){
 }
 
 var displaySavedMovieOptions = function(data){
-    console.log(data)
+    // console.log(data)
     listOfMoviesEl.setAttribute("style", "display:block")
     movieDescriptionEl.setAttribute("style", "display:none")
 

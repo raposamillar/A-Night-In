@@ -204,19 +204,21 @@ var SaveLocalStorage = function (event){
     var searchCheck = familyDrinkStorage.findIndex(item => drinkId == item);
     if (searchCheck == -1){
     familyDrinkStorage.push(drinkId)
-    localStorage.setItem("drinkId", JSON.stringify(familyDrinkStorage));
+    localStorage.setItem("family-drinkId", JSON.stringify(familyDrinkStorage));
     }
 }
 
 var loadLocalStorage = function (event){
-    var drinkhistory = JSON.parse(localStorage.getItem("drinkId"));
-    console.log("history is : ", drinkhistory)
+    var drinkhistory = JSON.parse(localStorage.getItem("family-drinkId"));
+    // console.log("history is : ", drinkhistory)
     outputContainterEl.textContent=""
-    
+    var searchDrinkCheck = ""
     for (var i = 0; i < drinkhistory.length; i++){
         loadSavedDrinks(drinkhistory[i])
+        searchDrinkCheck = familyDrinkStorage.findIndex(item => drinkhistory[i] == item);
+        if (searchDrinkCheck == -1){
         familyDrinkStorage.push(drinkhistory[i])
-    }
+    }}
 
 }
 
