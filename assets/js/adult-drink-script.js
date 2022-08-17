@@ -41,9 +41,9 @@ var searchDrinkId = function (data) {
                 return response.json()
             })
             .then(function(data){
-                // console.log(data)
+                console.log(data)
                 arrayFetch = []
-                arrayFetch.push(data)
+                arrayFetch.push(data.drinks)
                 // console.log(arrayFetch)
                 findDrinkId(arrayFetch); 
             })
@@ -67,27 +67,29 @@ var searchDrinkId = function (data) {
 
 var findDrinkId = function (arrayFetch){
     // console.log(arrayFetch)
+    var newArray = arrayFetch[0]
+    console.log(newArray)
     // console.log(arrayFetch[0].drinks)
     drinkIdListEl.textContent="";
     outputContainterEl.setAttribute("style", "display:block")
     ingredientImgEl.setAttribute("style", "display:none")
-    if (arrayFetch[0].drinks.length <= 5) {
-        for (var i = 0; i < arrayFetch[0].drinks.length; i++){
+    if (newArray.length <= 5) {
+        for (var i = 0; i < newArray.length; i++){
             var img = document.createElement("li");
             img.setAttribute("style", "list-style: none")
             img.classList = "drink-image";
-            img.innerHTML = "<img src='" + arrayFetch[0].drinks[i].strDrinkThumb + "' alt='" + arrayFetch[0].drinks[i].idDrink  + "' class='drinkImg'>";
+            img.innerHTML = "<img src='" + newArray[i].strDrinkThumb + "' alt='" + newArray[i].idDrink  + "' class='drinkImg'>";
             drinkIdListEl.appendChild(img);
             outputContainterEl.appendChild(drinkIdListEl)
         }
     } else {
-        var listRange = Math.floor(Math.random () * (arrayFetch[0].drinks.length-5))
+        var listRange = Math.floor(Math.random () * (newArray.length-5))
         // console.log(listRange)
         for (var i = listRange; i < listRange+5; i++){
             var img = document.createElement("li");
             img.setAttribute("style", "list-style: none")
             img.classList = "drink-image";
-            img.innerHTML = "<img src='" + arrayFetch[0].drinks[i].strDrinkThumb + "' alt='" + arrayFetch[0].drinks[i].idDrink  + "' class='drinkImg'>";
+            img.innerHTML = "<img src='" + newArray[i].strDrinkThumb + "' alt='" + newArray[i].idDrink  + "' class='drinkImg'>";
             drinkIdListEl.appendChild(img);
             outputContainterEl.appendChild(drinkIdListEl)
         }
@@ -227,9 +229,12 @@ var displaySavedDrinkOptions = function(data){
     
 }
 
+var loadSavedDrinksId = function (event) {
+    searchDrinkId(buttonContent.textContent)
+}
 
 backBtnEl.addEventListener("click", previousDrink);
-shuffleBtnEl.addEventListener("click", selectIngredient);
+shuffleBtnEl.addEventListener("click", loadSavedDrinksId);
 drinkCategoryEl.addEventListener("click", drinkCategory);
 ingredientEl.addEventListener("click", selectIngredient);
 outputContainterEl.addEventListener('click', getId); 
