@@ -120,9 +120,7 @@ var displayMovieOptions = function(data){
         var images = document.createElement("img")
         images.setAttribute("src" , "https://image.tmdb.org/t/p/original"+data[i].poster_path)
         images.setAttribute("alt", data[i].id)
-        images.classList = "movie-images column is-4"
-        images.setAttribute("style", "width: 250px")
-        images.setAttribute("style", "height: 250px")
+        images.classList = "movie-images column is-4-desktop is-5-tablet is-6-mobile"
         listOfMoviesEl.appendChild(images)
     }
 }
@@ -214,7 +212,7 @@ var displaySavedMovieOptions = function(data){
         var images = document.createElement("img")
         images.setAttribute("src" , "https://image.tmdb.org/t/p/original"+data.poster_path)
         images.setAttribute("alt", data.id)
-        images.classList = "movie-images column is-4"
+        images.classList = "movie-images column is-4-desktop is-5-tablet is-6-mobile"
         images.setAttribute("style", "width: 250px")
         images.setAttribute("style", "height: 250px")
         adultMovieOptionsEl.appendChild(images);

@@ -79,7 +79,7 @@ var findDrinkId = function (buttonContent, data){
                     if(drinkArray[k]==apiArray[j].idDrink){
                         var img = document.createElement("li");
                         img.setAttribute("style", "list-style: none")
-                        img.classList = "drink-image column is-4";
+                        img.classList = "drink-image column is-4-desktop is-5-tablet is-6-mobile";
                         img.innerHTML = "<img src='" + apiArray[j].strDrinkThumb + "' alt='" + apiArray[j].idDrink  + "' class='drinkImg'>";
                         familyDrinkOptionsEl.appendChild(img);
                         outputContainterEl.appendChild(familyDrinkOptionsEl)
@@ -108,6 +108,7 @@ var ingredientsContent = function (drinkId){
 var displayIngredient = function(data){
 
     ingredientContainerEl.textContent=""
+    ingredientContainerEl.classList.add("card")
     outputContainterEl.setAttribute("style", "display:none");
     ingredientImgEl.setAttribute("style", "display:block")
     console.log(data.drinks[0].strIngredient1)
@@ -211,7 +212,7 @@ var displaySavedDrinkOptions = function(data){
     for (var i = 0; i < data.drinks.length; i++){
         var img = document.createElement("li");
         img.setAttribute("style", "list-style: none")
-        img.classList = "drink-image column is-4";
+        img.classList = "drink-image column is-4-desktop is-5-tablet is-6-mobile";
         img.innerHTML = "<img src='" + data.drinks[i].strDrinkThumb + "' alt='" + data.drinks[i].idDrink  + "' class='drinkImg card-image'>";
         familyDrinkOptionsEl.appendChild(img)
         outputContainterEl.appendChild(familyDrinkOptionsEl);

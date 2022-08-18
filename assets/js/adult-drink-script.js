@@ -63,7 +63,7 @@ var findDrinkId = function (arrayFetch){
         for (var i = 0; i < newArray.length; i++){
             var img = document.createElement("li");
             img.setAttribute("style", "list-style: none")
-            img.classList = "drink-image column is-4";
+            img.classList = "drink-image column is-4-desktop is-5-tablet is-6-mobile";
             img.innerHTML = "<img src='" + newArray[i].strDrinkThumb + "' alt='" + newArray[i].idDrink  + "' class='drinkImg'>";
             drinkIdListEl.appendChild(img);
             outputContainterEl.appendChild(drinkIdListEl)
@@ -74,7 +74,7 @@ var findDrinkId = function (arrayFetch){
         for (var i = listRange; i < listRange+6; i++){
             var img = document.createElement("li");
             img.setAttribute("style", "list-style: none")
-            img.classList = "drink-image column is-4";
+            img.classList = "drink-image column is-4-desktop is-5-tablet is-6-mobile";
             img.innerHTML = "<img src='" + newArray[i].strDrinkThumb + "' alt='" + newArray[i].idDrink  + "' class='drinkImg'>";
             drinkIdListEl.appendChild(img);
             outputContainterEl.appendChild(drinkIdListEl)
@@ -104,8 +104,6 @@ var displayIngredient = function(data){
     ingredientContainerEl.classList.add("card")
     outputContainterEl.setAttribute("style", "display:none");
     ingredientImgEl.setAttribute("style", "display:block")
-    // console.log(data.drinks[0].strIngredient1)
-    // console.log(data.drinks[0].strMeasure1)
     var drinkImg = data.drinks[0].strDrinkThumb;
     drinkOutputEl.innerHTML = "<img src='" + drinkImg + "' alt='" + data.drinks[0].idDrink + "' class='drinkImg card-image'>"
     var drinkName = document.createElement("li");
@@ -210,7 +208,7 @@ var displaySavedDrinkOptions = function(data){
     for (var i = 0; i < data.drinks.length; i++){
         var img = document.createElement("li");
         img.setAttribute("style", "list-style: none")
-        img.classList = "drink-image column is-4";
+        img.classList = "drink-image column is-4-desktop is-5-tablet is-6-mobile";
         img.innerHTML = "<img src='" + data.drinks[i].strDrinkThumb + "' alt='" + data.drinks[i].idDrink  + "' class='drinkImg'>";
         adultDrinkOptionsEl.appendChild(img);
         outputContainterEl.appendChild(adultDrinkOptionsEl);
