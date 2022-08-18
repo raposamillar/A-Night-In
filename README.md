@@ -30,3 +30,8 @@ Please note that this is a non-commercial project.  As such, the collaborative t
 
 <img src="./assets/images/attribution-logo-the-cocktail-db.png" width="300" /><br>
 <img src="./assets/images/attribution-logo-the-movie-db.svg" width="300" /><br> 
+
+<img src="./assets/images/site-screenshot-1.png" width="300"/><br>
+<img src="./assets/images/site-screenshot-2.png" width="300"/><br>
+
+
