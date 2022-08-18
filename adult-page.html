@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/adult-style.css">
     <title>Adult</title>
 </head>
 <body>
@@ -52,19 +52,24 @@
                     </div>
               </div>
 
-              <button class="drinks-btn drink-back-btn">Back</button>
-              <button class="drinks-btn drink-shuffle-btn">Shuffle</button>
-              <div class="output-container column is-6">
-                <ul class="drink-id-list">
+              
+              <div class="output-container column is-full">
+                <ul id="adult-drink-options" class="columns is-marginless is-flex-wrap-wrap drink-id-list">
 
                 </ul>
               </div>
 
               <div class="ingredients">
-                  <div class="drinkImgContainer"></div>
+                  <div class="drinkImgContainer card-image image is-4by3">
+
+                  </div>
                   <ul class="ing-content">
+
                   </ul>
               </div>
+              <br>
+              <button class="drinks-btn drink-back-btn">Back</button>
+              <button class="drinks-btn drink-shuffle-btn">Shuffle</button>
             </section>
             
             <section class="column is-6 has-background-primary">
@@ -104,24 +109,30 @@
                 </div>
                 
               </div>
-              <button class="movie-btn back-button ">Back</button>
-              <button class="movie-btn shuffle-button ">Shuffle</button>
-
-              <section class="list-of-movies"></section>
               
-              <div class="movie-description">
-                <div class="poster column is-6"></div>
-                  <ul class="movie-content">
-                  </ul>
+
+              <div class="movie-output column is-full">
+                <ul id="adult-movie-options" class="columns  is-marginless is-flex-wrap-wrap list-of-movies">
+
+                </ul>
               </div>
+              <div class="movie-description-container">
+                <div class="movie-description is-flex is-justify-content-center">
+                  <div class="poster column is-6 card-image image is-4by3 is-flex is-justify-content-center"></div>
+                  <ul class=" movie-content">
+                  </ul>
+                </div>
+              </div>
+              <br>
+              <button class="movie-btn back-button">Back</button>
+              <button class="movie-btn shuffle-button">Shuffle</button>
             </section>
-            <button class="movie-btn save-button ">Save History</button>
-            <button class="movie-btn load-button ">Load History</button>
+            <button class="movie-btn save-button">Save History</button>
+            <button class="movie-btn load-button">Load History</button>
         </div>
     </main>
     
 </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./assets/js/adult-movie-script.js"></script>
     <script src="./assets/js/adult-drink-script.js"></script>
 </html>

@@ -8,6 +8,7 @@ var ingredientContainerEl = document.querySelector(".ing-content");
 var ingredientImgEl = document.querySelector(".ingredients");
 var drinkIdListEl = document.querySelector(".drink-id-list");
 var drinkOutputEl = document.querySelector(".drinkImgContainer");
+var adultDrinkOptionsEl = document.querySelector("#adult-drink-options");
 var arrayFetch = [];
 var adultDrinkStorage = [];
 
@@ -48,21 +49,6 @@ var searchDrinkId = function (data) {
                 findDrinkId(arrayFetch); 
             })
 
-    
-    //console.log(totalDrinks[0]);
-    // console.log(buttonContent);
-    //console.log(totalDrinks[0].name);
-    // for(var i= 0; i < totalDrinks.length; i++){
-    //     if(buttonContent == totalDrinks[i].name){
-    //         console.log(totalDrinks[i].id);
-            
-            // var random =  Math.floor(Math.random() * totalDrinks[i].id.length) 
-    
-            // console.log(random);
-            // ingredientsContent(totalDrinks[i].id[random]);
-        
-            // console.log("found it");
-
         }
 
 var findDrinkId = function (arrayFetch){
@@ -73,22 +59,22 @@ var findDrinkId = function (arrayFetch){
     drinkIdListEl.textContent="";
     outputContainterEl.setAttribute("style", "display:block")
     ingredientImgEl.setAttribute("style", "display:none")
-    if (newArray.length <= 5) {
+    if (newArray.length <= 6) {
         for (var i = 0; i < newArray.length; i++){
             var img = document.createElement("li");
             img.setAttribute("style", "list-style: none")
-            img.classList = "drink-image";
+            img.classList = "drink-image column is-4";
             img.innerHTML = "<img src='" + newArray[i].strDrinkThumb + "' alt='" + newArray[i].idDrink  + "' class='drinkImg'>";
             drinkIdListEl.appendChild(img);
             outputContainterEl.appendChild(drinkIdListEl)
         }
     } else {
-        var listRange = Math.floor(Math.random () * (newArray.length-5))
+        var listRange = Math.floor(Math.random () * (newArray.length-6))
         // console.log(listRange)
-        for (var i = listRange; i < listRange+5; i++){
+        for (var i = listRange; i < listRange+6; i++){
             var img = document.createElement("li");
             img.setAttribute("style", "list-style: none")
-            img.classList = "drink-image";
+            img.classList = "drink-image column is-4";
             img.innerHTML = "<img src='" + newArray[i].strDrinkThumb + "' alt='" + newArray[i].idDrink  + "' class='drinkImg'>";
             drinkIdListEl.appendChild(img);
             outputContainterEl.appendChild(drinkIdListEl)
@@ -115,14 +101,15 @@ var ingredientsContent = function (drinkId){
 var displayIngredient = function(data){
 
     ingredientContainerEl.textContent=""
+    ingredientContainerEl.classList.add("card")
     outputContainterEl.setAttribute("style", "display:none");
     ingredientImgEl.setAttribute("style", "display:block")
     // console.log(data.drinks[0].strIngredient1)
     // console.log(data.drinks[0].strMeasure1)
     var drinkImg = data.drinks[0].strDrinkThumb;
-    drinkOutputEl.innerHTML = "<img src='" + drinkImg + "' alt='" + data.drinks[0].idDrink + "' class='drinkImg'>"
+    drinkOutputEl.innerHTML = "<img src='" + drinkImg + "' alt='" + data.drinks[0].idDrink + "' class='drinkImg card-image'>"
     var drinkName = document.createElement("li");
-    drinkName.classList = "drink-name"
+    drinkName.classList = "drink-name card-header card-header-title"
     drinkName.textContent = data.drinks[0].strDrink
     ingredientImgEl.appendChild(drinkOutputEl);
     ingredientContainerEl.appendChild(drinkName)
@@ -133,7 +120,7 @@ var displayIngredient = function(data){
         
         if (arry[i]){
             var drinkIngredient = document.createElement("li");
-            drinkIngredient.classList = "drink-ingredient"
+            drinkIngredient.classList = "drink-ingredient card-content"
             drinkIngredient.textContent =arry1[i] + " - " + arry[i]
             ingredientContainerEl.appendChild(drinkIngredient)
 
@@ -142,7 +129,7 @@ var displayIngredient = function(data){
     }
 
     var drinkInstruction = document.createElement("li");
-    drinkInstruction.classList = "drink-instruction"
+    drinkInstruction.classList = "drink-instruction card-content"
     drinkInstruction.textContent = data.drinks[0].strInstructions
     ingredientContainerEl.appendChild(drinkInstruction)
     ingredientImgEl.appendChild(ingredientContainerEl);
@@ -188,7 +175,7 @@ var SaveLocalStorage = function (event){
 var loadLocalStorage = function (event){
     var drinkhistory = JSON.parse(localStorage.getItem("adult-drinkId"));
     // console.log("drink history is : ", drinkhistory)
-    outputContainterEl.textContent=""
+    adultDrinkOptionsEl.textContent=""
     var searchDrinkCheck = ""
     for (var i = 0; i < drinkhistory.length; i++){
         searchDrinkCheck = adultDrinkStorage.findIndex(item => drinkhistory[i] == item);
@@ -218,12 +205,15 @@ var displaySavedDrinkOptions = function(data){
     // console.log(data)
     ingredientImgEl.setAttribute("style", "display:none")
     outputContainterEl.setAttribute("style", "display:block")
+    // adultDrinkOptionsEl.textContent=""
+    buttonContent.textContent ="Choose your poison"
     for (var i = 0; i < data.drinks.length; i++){
         var img = document.createElement("li");
         img.setAttribute("style", "list-style: none")
-        img.classList = "drink-image";
+        img.classList = "drink-image column is-4";
         img.innerHTML = "<img src='" + data.drinks[i].strDrinkThumb + "' alt='" + data.drinks[i].idDrink  + "' class='drinkImg'>";
-        outputContainterEl.appendChild(img);
+        adultDrinkOptionsEl.appendChild(img);
+        outputContainterEl.appendChild(adultDrinkOptionsEl);
     }
    
     

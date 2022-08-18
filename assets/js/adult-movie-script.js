@@ -9,6 +9,9 @@ var shuffleButtonEl = document.querySelector(".shuffle-button");
 var saveButtonEl = document.querySelector(".save-button");
 var loadButtonEl = document.querySelector(".load-button");
 var listOfMoviesEl = document.querySelector(".list-of-movies");
+var movieOutputEl = document.querySelector(".movie-output");
+var movieDescriptionContainerEl = document.querySelector(".movie-description-container");
+var adultMovieOptionsEl = document.querySelector("#adult-movie-options");
 var arrList = []
 var genreId = ""
 var adultMovieStorage = []
@@ -75,7 +78,7 @@ var checkGenre = function(check){
 
 
 var searchMovie = function (genreId, totalPage) {
-    var page =  Math.floor((Math.random() * 500)+1)
+    var page =  Math.floor((Math.random() * 30)+1)
     console.log("ID: " + genreId + " total page: " + page)
     var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=primary_release_date.desc&page=" + page + "&with_genres=" + genreId + "&with_original_language=en";
     fetch (apiUrl)
@@ -106,16 +109,18 @@ var searchMovie = function (genreId, totalPage) {
 
 var displayMovieOptions = function(data){
     console.log(data)
-    listOfMoviesEl.setAttribute("style", "display:block")
-    movieDescriptionEl.setAttribute("style", "display:none")
+    movieOutputEl.setAttribute("style", "display:block")
+    // movieDescriptionEl.classList.add("hide")
+    movieDescriptionContainerEl.setAttribute("style", "display:none")
 
   listOfMoviesEl.textContent=""
-    var listRange = Math.floor(Math.random () * ((data.length-5)+1))
+    var listRange = Math.floor(Math.random () * (data.length-6))
     console.log(listRange)
-    for (var i = listRange; i < listRange+5; i++){
+    for (var i = listRange; i < listRange+6; i++){
         var images = document.createElement("img")
         images.setAttribute("src" , "https://image.tmdb.org/t/p/original"+data[i].poster_path)
         images.setAttribute("alt", data[i].id)
+        images.classList = "movie-images column is-4"
         images.setAttribute("style", "width: 250px")
         images.setAttribute("style", "height: 250px")
         listOfMoviesEl.appendChild(images)
@@ -123,21 +128,26 @@ var displayMovieOptions = function(data){
 }
 
 var displayMovie = function(event){
-    listOfMoviesEl.setAttribute("style", "display:none")
-    movieDescriptionEl.setAttribute("style", "display:block")
+    movieOutputEl.setAttribute("style", "display:none")
+    movieDescriptionContainerEl.setAttribute("style", "display:block")
     var poster = event.target.getAttribute("alt");
     for (var i = 0; i < arrList.length; i++) {
         if (arrList[i].id==poster){
-            posterEl.innerHTML = "<img src='https://image.tmdb.org/t/p/original" + arrList[i].poster_path +  "' alt='" + arrList[i].id + "' class='posterImg'>"
+            posterEl.innerHTML = "<img src='https://image.tmdb.org/t/p/original" + arrList[i].poster_path +  "' alt='" + arrList[i].id + "' class='posterImg card-image'>"
             movieContentEl.textContent= "";
+            movieContentEl.classList.add("card")
             var title = document.createElement("li");
+            title.classList = "movie-title card-header-title"
             var overview = document.createElement("li");
+            overview.classList = "movie-description card-content"
             var date = document.createElement("li");
+            date.classList = "movie-description card-content"
             var rating = document.createElement("li");
+            rating.classList = "movie-description card-content"
             title.textContent = arrList[i].title;
-            overview.textContent = arrList[i].overview;
-            date.textContent = arrList[i].release_date;
-            rating.textContent = arrList[i].vote_average;
+            overview.textContent = "Movie Description: " + arrList[i].overview;
+            date.textContent = "Movie Release Date: " + arrList[i].release_date;
+            rating.textContent = "Movie Rating: " + arrList[i].vote_average;
         
             if(posterEl){
                 movieContentEl.appendChild(title);
@@ -150,8 +160,8 @@ var displayMovie = function(event){
 }
 
 var previousResults = function (){
-    movieDescriptionEl.setAttribute("style", "display:none")
-    listOfMoviesEl.setAttribute("style", "display:block")
+    movieDescriptionContainerEl.setAttribute("style", "display:none")
+    movieOutputEl.setAttribute("style", "display:block")
 }
 
 
@@ -201,15 +211,16 @@ var loadSavedMovies = function (movieId){
 
 var displaySavedMovieOptions = function(data){
     // console.log(data)
-    listOfMoviesEl.setAttribute("style", "display:block")
-    movieDescriptionEl.setAttribute("style", "display:none")
+    movieOutputEl.setAttribute("style", "display:block")
+    movieDescriptionContainerEl.setAttribute("style", "display:none")
 
         var images = document.createElement("img")
         images.setAttribute("src" , "https://image.tmdb.org/t/p/original"+data.poster_path)
         images.setAttribute("alt", data.id)
+        images.classList = "movie-images column is-4"
         images.setAttribute("style", "width: 250px")
         images.setAttribute("style", "height: 250px")
-        listOfMoviesEl.appendChild(images)
+        adultMovieOptionsEl.appendChild(images);
         arrList.push(data)
 }
 
