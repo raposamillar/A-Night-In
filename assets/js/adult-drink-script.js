@@ -223,6 +223,15 @@ var loadSavedDrinksId = function (event) {
     searchDrinkId(buttonContent.textContent)
 }
 
+var loadStoredData = function (){
+    var history = JSON.parse(localStorage.getItem("adult-drinkId"));
+    if (history) {
+        familyDrinkStorage.push(history)
+    }
+}
+
+loadStoredData()
+
 backBtnEl.addEventListener("click", previousDrink);
 shuffleBtnEl.addEventListener("click", loadSavedDrinksId);
 drinkCategoryEl.addEventListener("click", drinkCategory);

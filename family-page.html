@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/family-style.css">
     <title>Family</title>
     <link rel="icon" type="image/x-icon" href="./assets/images/Project1_2.png">
 </head>
@@ -14,7 +15,7 @@
         <h1 id="title">Find your pair(family)</h1>
     </header>
     <div class="columns is-marginless is-flex-wrap-wrap">
-      <div id="family" class="column is-6 split-left">
+      <div id="home" class="column is-6 split-left">
           <h2 class="title-left"></h2>
           <a href="./index.html"><button class="button is-large is-fullwidth">HOME</button></a>
       </div>
@@ -25,11 +26,11 @@
   </div> 
     <main>
         <div class="columns is-marginless is-flex-wrap-wrap">
-            <section class="column is-6 has-background-link">
+            <section class="column is-6">
                
                 <!-- dropdown start -->
 
-                <div class="column is-6 drink-category dropdown"> <!-- add "is-hoverable" to see dropdown items-->
+                <div class="column is-6 drink-category dropdown"> 
                     <div class="dropdown-trigger">
                       <button class="category-btn button" aria-haspopup="true" aria-controls="dropdown-menu">
                         <span class="button-content column is-11">Choose your drink</span>
@@ -64,20 +65,20 @@
 
               <button class="drinks-btn back-btn">Back</button>
               <button class="drinks-btn shuffle-btn">Shuffle</button>
-              <div class="output-container column is-6">
-                <ul class="drink-id-list">
+              <div class="output-container column is-full">
+                <ul id="family-drink-options" class="columns is-marginless is-flex-wrap-wrap drink-id-list">
 
                 </ul>
               </div>
 
               <div class="ingredients">
-                  <div class="drinkImgContainer"></div>
+                  <div class="drinkImgContainer card-image image is is-4by3"></div>
                   <ul class="ing-content">
                   </ul>
               </div>
             </section>
             
-            <section class="column is-6 has-background-primary">
+            <section class="column is-6">
               <div class="column is-6 movie-category dropdown"> <!-- add "is-hoverable" to see dropdown items-->
                 <div class="dropdown-trigger">
                   <button class="category-btn button" aria-haspopup="true" aria-controls="dropdown-menu">
@@ -117,12 +118,15 @@
               <button class="movie-btn back-button ">Back</button>
               <button class="movie-btn shuffle-button ">Shuffle</button>
 
-              <section class="list-of-movies"></section>
-              
-              <div class="movie-description">
-                <div class="poster column is-6"></div>
-                  <ul class="movie-content">
-                  </ul>
+              <div class="movie-output column is-full">
+                <ul id="adult-movie-options" class="columns is-marginless is-flex-wrap-wrap list-of-movies"></ul>
+              </div>
+              <div class="movie-description-container">
+                <div class="movie-description is-flex is-justify-content-center">
+                  <div class="poster column is-6 card-image image is-4by3 is-flex is-justify-content-center"></div>
+                    <ul class="movie-content">
+                    </ul>
+                </div>
               </div>
             </section>
             <button class="movie-btn save-button ">Save History</button>
@@ -131,7 +135,6 @@
     </main>
     
 </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./assets/js/family-movie-script.js"></script>
     <script src="./assets/js/family-drink-script.js"></script>
 </html>

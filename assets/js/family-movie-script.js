@@ -9,6 +9,9 @@ var shuffleButtonEl = document.querySelector(".shuffle-button");
 var saveButtonEl = document.querySelector(".save-button");
 var loadButtonEl = document.querySelector(".load-button");
 var listOfMoviesEl = document.querySelector(".list-of-movies");
+var movieOutputEl = document.querySelector(".movie-output");
+var movieDescriptionContainerEl = document.querySelector(".movie-description-container");
+var familyMovieOptionsEl = document.querySelector("#family-movie-options");
 var arrList = []
 var genreId = ""
 var familyMovieStorage = []
@@ -104,8 +107,8 @@ var searchMovie = function (genreId, totalPage) {
 
 var displayMovieOptions = function(data){
     console.log(data)
-    listOfMoviesEl.setAttribute("style", "display:block")
-    movieDescriptionEl.setAttribute("style", "display:none")
+    movieOutputEl.setAttribute("style", "display:block")
+    movieDescriptionContainerEl.setAttribute("style", "display:none")
 
   listOfMoviesEl.textContent=""
     var listRange = Math.floor(Math.random () * ((data.length-5)+1))
@@ -116,26 +119,32 @@ var displayMovieOptions = function(data){
         images.setAttribute("alt", data[i].id)
         images.setAttribute("style", "width: 250px")
         images.setAttribute("style", "height: 250px")
+        images.classList = "movie-imgaes column is-4"
         listOfMoviesEl.appendChild(images)
     }
 }
 
 var displayMovie = function(event){
-    listOfMoviesEl.setAttribute("style", "display:none")
-    movieDescriptionEl.setAttribute("style", "display:block")
+    movieOutputEl.setAttribute("style", "display:none")
+    movieDescriptionContainerEl.setAttribute("style", "display:block")
     var poster = event.target.getAttribute("alt");
     for (var i = 0; i < arrList.length; i++) {
         if (arrList[i].id==poster){
-            posterEl.innerHTML = "<img src='https://image.tmdb.org/t/p/original" + arrList[i].poster_path +  "' alt='" + arrList[i].id + "' class='posterImg'>"
+            posterEl.innerHTML = "<img src='https://image.tmdb.org/t/p/original" + arrList[i].poster_path +  "' alt='" + arrList[i].id + "' class='posterImg card-image'>"
             movieContentEl.textContent= "";
+            movieContentEl.classList.add("card")
             var title = document.createElement("li");
+            title.classList = "movie-title card-header-title"
             var overview = document.createElement("li");
+            overview.classList = "movie-description card-content"
             var date = document.createElement("li");
+            date.classList = "movie-description card-content"
             var rating = document.createElement("li");
+            rating.classList = "movie-description card-content"
             title.textContent = arrList[i].title;
-            overview.textContent = arrList[i].overview;
-            date.textContent = arrList[i].release_date;
-            rating.textContent = arrList[i].vote_average;
+            overview.textContent = "Movie Description: " + arrList[i].overview;
+            date.textContent = "Movie Release Date: " + arrList[i].release_date;
+            rating.textContent = "Movie Rating: " + arrList[i].vote_average;
         
             if(posterEl){
                 movieContentEl.appendChild(title);
@@ -148,8 +157,10 @@ var displayMovie = function(event){
 }
 
 var previousResults = function (){
-    movieDescriptionEl.setAttribute("style", "display:none")
-    listOfMoviesEl.setAttribute("style", "display:block")
+    movieDescriptionContainerEl.setAttribute("style", "display:none")
+    movieOutputEl.setAttribute("style", "display:block")
+
+
 }
 
 
@@ -165,9 +176,8 @@ var SaveLocalStorage = function (event){
 
 var loadLocalStorage = function (event){
     var history = JSON.parse(localStorage.getItem("family-movieId"));
-    // console.log("history is : ", history)
     listOfMoviesEl.textContent=""
-    var searchMovieCheck = familyMovieStorage.findIndex(item => history[i] == item);
+    var searchMovieCheck = ""
     for (var i = 0; i < history.length; i++){
         loadSavedMovies(history[i])
         searchMovieCheck = familyMovieStorage.findIndex(item => history[i] == item);
@@ -197,19 +207,27 @@ var loadSavedMovies = function (movieId){
 
 var displaySavedMovieOptions = function(data){
     console.log(data)
-    listOfMoviesEl.setAttribute("style", "display:block")
-    movieDescriptionEl.setAttribute("style", "display:none")
+    movieOutputEl.setAttribute("style", "display:block")
+    movieDescriptionContainerEl.setAttribute("style", "display:none")
 
         var images = document.createElement("img")
         images.setAttribute("src" , "https://image.tmdb.org/t/p/original"+data.poster_path)
         images.setAttribute("alt", data.id)
         images.setAttribute("style", "width: 250px")
         images.setAttribute("style", "height: 250px")
+        images.classList = "movie-images column is-4"
         listOfMoviesEl.appendChild(images)
         arrList.push(data)
 }
 
+var loadStoredData = function (){
+    var history = JSON.parse(localStorage.getItem("family-movieId"));
+    if (history) {
+        familyMovieStorage.push(history)
+    }
+}
 
+loadStoredData()
 
 listOfMoviesEl.addEventListener("click", displayMovie)
 // backButtonEl.addEventListener("click",searchMovieGenre);

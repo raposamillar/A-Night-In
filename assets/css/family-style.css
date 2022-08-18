@@ -1,0 +1,29 @@
+.drink-image {
+    width: 200px;
+}
+
+.drinkImg {
+    width: 400px;
+    /* border-radius: 5px; */
+}
+
+.card-header {
+    background-color: rgb(236, 232, 232);
+}
+.card-content {
+    padding: 0;
+    margin: 0 0 0 20px;
+    list-style: circle;
+}
+
+.hide {
+    display: none;
+}
+
+.posterImg {
+    width: 50%;
+}
+
+.drink-back-btn, .drink-shuffle-btn {
+    transform:translateY(13px)
+}
