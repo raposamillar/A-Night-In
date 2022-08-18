@@ -163,6 +163,9 @@ var previousResults = function (){
 
 var SaveLocalStorage = function (event){
     var movieId = posterEl.children[0].getAttribute("alt")
+    // if (!movieId) {
+    //     document.create
+    // }
     var searchCheck = familyMovieStorage.findIndex(item => movieId == item);
     if (searchCheck == -1){
     familyMovieStorage.push(movieId)
