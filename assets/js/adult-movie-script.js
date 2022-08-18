@@ -227,9 +227,10 @@ var displaySavedMovieOptions = function(data){
 var loadStoredData = function (){
     var history = JSON.parse(localStorage.getItem("adult-movieId"));
     if (history) {
-        familyMovieStorage.push(history)
+        adultMovieStorage.push(history)
     }
 }
+loadStoredData()
 
 listOfMoviesEl.addEventListener("click", displayMovie)
 // backButtonEl.addEventListener("click",searchMovieGenre);

@@ -27,3 +27,25 @@
 .drink-back-btn, .drink-shuffle-btn {
     transform:translateY(13px)
 }
+
+#drink-btn-container,#movie-btn-container {
+    padding: 0;
+}
+
+#drink-dropdown-trigger, #drink-dropdown-trigger {
+    padding: 0;
+}
+
+.drinks-btn, .movie-btn {
+    padding: 0;
+    width: 60px;
+    height: 38px;
+}
+
+.movie-btn{
+    margin-top: 13px;
+}
+
+.storage-btn {
+    margin-bottom: 10px;
+} 

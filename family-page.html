@@ -29,9 +29,9 @@
             <section class="column is-6">
                
                 <!-- dropdown start -->
-
-                <div class="column is-6 drink-category dropdown"> 
-                    <div class="dropdown-trigger">
+              <div id="drink-btn-container" class="columns is-full is-marginless is-flex is-flex-wrap-wrap">
+                <div class="column is-6 drink-category dropdown pl-0 pb-0 pr-0"> 
+                    <div id="drink-drowdown-trigger" class="dropdown-trigger column is-full p-0">
                       <button class="category-btn button" aria-haspopup="true" aria-controls="dropdown-menu">
                         <span class="button-content column is-11">Choose your drink</span>
                         <span class="icon is-small">
@@ -61,10 +61,11 @@
                         </p>
                       </div>
                     </div>
+                </div>
+                <button class="column is-3 drinks-btn back-btn">Back</button>
+                <button class="column is-3 drinks-btn shuffle-btn">Shuffle</button>
               </div>
 
-              <button class="drinks-btn back-btn">Back</button>
-              <button class="drinks-btn shuffle-btn">Shuffle</button>
               <div class="output-container column is-full">
                 <ul id="family-drink-options" class="columns is-marginless is-flex-wrap-wrap drink-id-list">
 
@@ -79,62 +80,63 @@
             </section>
             
             <section class="column is-6">
-              <div class="column is-6 movie-category dropdown"> <!-- add "is-hoverable" to see dropdown items-->
-                <div class="dropdown-trigger">
-                  <button class="category-btn button" aria-haspopup="true" aria-controls="dropdown-menu">
-                    <span class="button-content-2 column is-11">Choose your genre</span>
-                    <span class="icon is-small">
-                        <ion-icon name="chevron-down-outline"></ion-icon>  
-                    </span>
-                  </button>
-                </div>
-                <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                  <div class="dropdown-content" id ="genre-list">
-                    <p class="dropdown-item">
-                      Action
-                    </p>
-                    <p class="dropdown-item">
-                      Adventure
-                    </p>
-                    <p class="dropdown-item">
-                      Animation
-                    </p>
-                    <p class="dropdown-item">
-                      Comedy
-                    </p>
-                    <p class="dropdown-item">
-                        Crime
-                    </p>
-                    <p class="dropdown-item">
-                        Documentary
-                    </p>
-                    <p class="dropdown-item">
-                        Drama
-                    </p>
+              <div id="movie-btn-container" class="columns is-full is-marginless is-flex is-flex-wrap-wrap"></div>
+                <div class="column is-6 movie-category dropdown pl-0 pr-0 pb-0"> <!-- add "is-hoverable" to see dropdown items-->
+                  <div id="movie-drowdown-trigger" class="dropdown-trigger column is-full p-0">
+                    <button class="category-btn button" aria-haspopup="true" aria-controls="dropdown-menu">
+                      <span class="button-content-2 column is-11">Choose your genre</span>
+                      <span class="icon is-small">
+                          <ion-icon name="chevron-down-outline"></ion-icon>  
+                      </span>
+                    </button>
+                  </div>
+                  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div class="dropdown-content" id ="genre-list">
+                      <p class="dropdown-item">
+                        Action
+                      </p>
+                      <p class="dropdown-item">
+                        Adventure
+                      </p>
+                      <p class="dropdown-item">
+                        Animation
+                      </p>
+                      <p class="dropdown-item">
+                        Comedy
+                      </p>
+                      <p class="dropdown-item">
+                          Crime
+                      </p>
+                      <p class="dropdown-item">
+                          Documentary
+                      </p>
+                      <p class="dropdown-item">
+                          Drama
+                      </p>
+                    </div>
                   </div>
                 </div>
-                
+                <button class="column is-3 movie-btn back-button mt-5px">Back</button>
+                <button class="column is-3 movie-btn shuffle-button ">Shuffle</button>
               </div>
-              <button class="movie-btn back-button ">Back</button>
-              <button class="movie-btn shuffle-button ">Shuffle</button>
 
               <div class="movie-output column is-full">
-                <ul id="adult-movie-options" class="columns is-marginless is-flex-wrap-wrap list-of-movies"></ul>
+                <ul id="family-movie-options" class="columns is-marginless is-flex-wrap-wrap list-of-movies"></ul>
               </div>
               <div class="movie-description-container">
                 <div class="movie-description is-flex is-justify-content-center">
                   <div class="poster column is-6 card-image image is-4by3 is-flex is-justify-content-center"></div>
-                    <ul class="movie-content">
-                    </ul>
+                  <ul class="movie-content">
+                  </ul>
                 </div>
               </div>
             </section>
-            <button class="movie-btn save-button ">Save History</button>
-            <button class="movie-btn load-button ">Load History</button>
+            <button class="storage-btn save-button button is-medium">Save History</button>
+            <button class="storage-btn load-button button is-medium">Load History</button>
         </div>
     </main>
-    
-</body>
     <script src="./assets/js/family-movie-script.js"></script>
     <script src="./assets/js/family-drink-script.js"></script>
+</body>
+
 </html>
