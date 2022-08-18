@@ -24,6 +24,10 @@
     width: 50%;
 }
 
+.drink-back-btn, .drink-shuffle-btn {
+    transform:translateY(13px)
+}
+
 #drink-btn-container,#movie-btn-container {
     padding: 0;
 }
@@ -38,7 +42,7 @@
     height: 38px;
 }
 
-.movie-btn{
+.movie-btn, .drinks-btn{
     margin-top: 13px;
 }
 

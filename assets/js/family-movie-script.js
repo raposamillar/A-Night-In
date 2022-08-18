@@ -55,7 +55,7 @@ var checkGenre = function(check){
 }
 
  var movieResults = function (genreId) {
-    var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=popularity.desc&with_genres=" + genreId +"&language=en&certification_country=US&certification.lte=PG&certification.gte=G&with_original_language=en";
+    var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=primary_release_date.desc&with_genres=" + genreId +"&language=en&certification_country=US&certification.lte=PG&certification.gte=G&with_original_language=en";
     fetch (apiUrl)
         .then(function(response){
             if (!response.ok) {
@@ -77,7 +77,7 @@ var checkGenre = function(check){
 
 
 var searchMovie = function (genreId, totalPage) {
-    var page =  Math.floor((Math.random() * totalPage)+1)
+    var page =  Math.floor((Math.random() * 30)+1)
     var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=primary_release_date.desc&page=" + page + "&with_genres=" + genreId + "&language=en&certification_country=US&certification.lte=PG&certification.gte=G&with_original_language=en";
     fetch (apiUrl)
         .then(function(response){
@@ -169,7 +169,6 @@ var SaveLocalStorage = function (event){
     var searchCheck = familyMovieStorage.findIndex(item => movieId == item);
     if (searchCheck == -1){
     familyMovieStorage.push(movieId)
-    console.log(movieId)
     localStorage.setItem("family-movieId", JSON.stringify(familyMovieStorage));
     }
 }
@@ -216,7 +215,7 @@ var displaySavedMovieOptions = function(data){
         images.setAttribute("style", "width: 250px")
         images.setAttribute("style", "height: 250px")
         images.classList = "movie-images column is-4"
-        listOfMoviesEl.appendChild(images)
+        familyMovieOptionsEl.appendChild(images)
         arrList.push(data)
 }
 

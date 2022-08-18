@@ -168,12 +168,9 @@ var previousResults = function (){
 var SaveLocalStorage = function (event){
     var movieId = posterEl.children[0].getAttribute("alt")
     var searchMovieCheck = adultMovieStorage.findIndex(item => movieId == item);
-    console.log("movie check: " + searchMovieCheck)
     if (searchMovieCheck == -1){
     adultMovieStorage.push(movieId)
-    // console.log(movieId)
     localStorage.setItem("adult-movieId", JSON.stringify(adultMovieStorage));
-    console.log("movie id is stored: " + adultMovieStorage)
     }
 }
 
