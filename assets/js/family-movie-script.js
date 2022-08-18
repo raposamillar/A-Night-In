@@ -97,9 +97,9 @@ var searchMovie = function (genreId, totalPage) {
             }
             displayMovieOptions (arrList)
         })
-        // .catch(function(error){
-        //     console.log("error message")
-        // });
+        .catch(function(error){
+            console.log("error message")
+        });
 
 };
 
@@ -109,11 +109,11 @@ var displayMovieOptions = function(data){
     console.log(data)
     movieOutputEl.setAttribute("style", "display:block")
     movieDescriptionContainerEl.setAttribute("style", "display:none")
-
-  listOfMoviesEl.textContent=""
-    var listRange = Math.floor(Math.random () * ((data.length-5)+1))
+    posterEl.textContent="";
+    listOfMoviesEl.textContent="";
+    var listRange = Math.floor(Math.random () * (data.length-6))
     console.log(listRange)
-    for (var i = listRange; i < listRange+5; i++){
+    for (var i = listRange; i < listRange+6; i++){
         var images = document.createElement("img")
         images.setAttribute("src" , "https://image.tmdb.org/t/p/original"+data[i].poster_path)
         images.setAttribute("alt", data[i].id)
@@ -157,8 +157,7 @@ var displayMovie = function(event){
 var previousResults = function (){
     movieDescriptionContainerEl.setAttribute("style", "display:none")
     movieOutputEl.setAttribute("style", "display:block")
-
-
+    posterEl.textContent=""
 }
 
 
@@ -196,9 +195,9 @@ var loadSavedMovies = function (movieId){
         .then(function(data){
             displaySavedMovieOptions(data)
         })
-        // .catch(function(error){
-        //     console.log("error")
-        // })
+        .catch(function(error){
+            console.log("error")
+        })
 
 }
 
@@ -220,14 +219,14 @@ var displaySavedMovieOptions = function(data){
 var loadStoredData = function (){
     var history = JSON.parse(localStorage.getItem("family-movieId"));
     if (history) {
-        familyMovieStorage.push(history)
-    }
+        for (var i = 0; i < history.length; i++){
+        familyMovieStorage.push(history[i])
+    }}
 }
 
 loadStoredData()
 
 listOfMoviesEl.addEventListener("click", displayMovie)
-// backButtonEl.addEventListener("click",searchMovieGenre);
 backButtonEl.addEventListener("click", previousResults);
 shuffleButtonEl.addEventListener("click", searchMovieGenre);
 genreEl.addEventListener("click",selectGenre);

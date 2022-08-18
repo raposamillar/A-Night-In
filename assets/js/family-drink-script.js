@@ -13,7 +13,6 @@ var arrayFetch = [];
 var familyDrinkStorage = [];
 
 
-// var test2El = document.querySelector(".test")
 var Punch = [12862,12890,12954,13032];
 var Smoothie = [12710,12708,12712,12720,12714,12716,12718];
 var Shake = [12654,12656,12658,12674];
@@ -29,17 +28,14 @@ var totalDrinks = [{name: "Punch", id: Punch},
 {name: "Lassi", id: Lassi}];
 
 
-// JS to toggle the dropdown menu based on click
 var drinkCategory = function (event) {
     event.stopPropagation();
     drinkCategoryEl.classList.toggle('is-active');
 }
 
-// replace content within the dropdown based on what's been selected
 var selectIngredient = function (event) {   
     var ingredient = event.target.textContent.trim();
     buttonContent.textContent=ingredient;
-    console.log(ingredient);
     searchDrinkId(buttonContent.textContent);
 }
 
@@ -57,7 +53,6 @@ var searchDrinkId = function (buttonContent) {
                 return response.json()
             })
             .then(function(data){
-                console.log(data)
                 arrayFetch = []
                 arrayFetch.push(data.drinks)
                 findDrinkId(buttonContent,arrayFetch); 
@@ -65,9 +60,9 @@ var searchDrinkId = function (buttonContent) {
         }
 
 var findDrinkId = function (buttonContent, data){
-    console.log(data)
     outputContainterEl.setAttribute("style", "display:block")
     ingredientImgEl.setAttribute("style", "display:none")
+    drinkOutputEl.textContent="";
     familyDrinkOptionsEl.textContent=""
     for(var i= 0; i < totalDrinks.length; i++){
         if(buttonContent == totalDrinks[i].name){
@@ -148,8 +143,6 @@ var previousDrink = function (event){
     outputContainterEl.setAttribute("style", "display:block");
     ingredientImgEl.setAttribute("style", "display:none")
     drinkOutputEl.textContent = ""
-   
-    
 }
 
 
@@ -160,12 +153,7 @@ function getId(event){
         
         ingredientsContent(imageId);
         outputContainterEl.setAttribute("style", "display:none");
-        // more efficient to hide the content until the user click on the back button. 
-        // will need to add css style to class hide to display none
-        
     }
-
-
 }
 
 var SaveLocalStorage = function (event){
@@ -221,17 +209,22 @@ var displaySavedDrinkOptions = function(data){
     
 }
 
+var loadSavedDrinksId = function (event) {
+    searchDrinkId(buttonContent.textContent)
+}
+
 var loadStoredData = function (){
     var history = JSON.parse(localStorage.getItem("family-drinkId"));
     if (history) {
-        familyDrinkStorage.push(history)
-    }
+        for (var i = 0; i < history.length; i++){
+        familyDrinkStorage.push(history[i])
+    }}
 }
 
 loadStoredData()
 
 backBtnEl.addEventListener("click", previousDrink);
-shuffleBtnEl.addEventListener("click", findDrinkId);
+shuffleBtnEl.addEventListener("click", loadSavedDrinksId);
 drinkCategoryEl.addEventListener("click", drinkCategory);
 ingredientEl.addEventListener("click", selectIngredient);
 outputContainterEl.addEventListener('click', getId); 

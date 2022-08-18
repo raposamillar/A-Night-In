@@ -42,20 +42,16 @@ var searchDrinkId = function (data) {
                 return response.json()
             })
             .then(function(data){
-                console.log(data)
-                arrayFetch = []
-                arrayFetch.push(data.drinks)
-                // console.log(arrayFetch)
+                arrayFetch = [];
+                arrayFetch.push(data.drinks);
                 findDrinkId(arrayFetch); 
             })
 
         }
 
 var findDrinkId = function (arrayFetch){
-    // console.log(arrayFetch)
     var newArray = arrayFetch[0]
-    console.log(newArray)
-    // console.log(arrayFetch[0].drinks)
+    drinkOutputEl.textContent="";
     drinkIdListEl.textContent="";
     outputContainterEl.setAttribute("style", "display:block")
     ingredientImgEl.setAttribute("style", "display:none")
@@ -138,7 +134,7 @@ var displayIngredient = function(data){
 var previousDrink = function (event){
     outputContainterEl.setAttribute("style", "display:block");
     ingredientImgEl.setAttribute("style", "display:none")
-   
+    drinkOutputEl.textContent="";
     
 }
 
@@ -224,8 +220,9 @@ var loadSavedDrinksId = function (event) {
 var loadStoredData = function (){
     var history = JSON.parse(localStorage.getItem("adult-drinkId"));
     if (history) {
-        familyDrinkStorage.push(history)
-    }
+        for (var i = 0; i < history.length; i++){
+        adultDrinkStorage.push(history[i])
+    }}
 }
 
 loadStoredData()
