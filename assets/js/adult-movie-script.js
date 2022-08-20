@@ -12,6 +12,7 @@ var listOfMoviesEl = document.querySelector(".list-of-movies");
 var movieOutputEl = document.querySelector(".movie-output");
 var movieDescriptionContainerEl = document.querySelector(".movie-description-container");
 var adultMovieOptionsEl = document.querySelector("#adult-movie-options");
+var notificationMovieEl = document.querySelector(".notificationMovie");
 var arrList = [];
 var genreId = "";
 var adultMovieStorage = [];
@@ -28,11 +29,13 @@ var selectGenre = function (event) {
 }
 
 var searchMovieGenre = function (buttonContent2) {
+    notificationMovieEl.textContent = "";
     var apiUrl = "https://api.themoviedb.org/3/genre/movie/list?api_key=93b9a9ec523abc563cc471bcb1fbab4b&language=en-US"
     fetch (apiUrl)
         .then(function(response){
             if (!response.ok) {
-                console.log("Failed to call API");
+                notificationMovieEl.classList.remove("hide");
+                notificationMovieEl.textContent = "Failed to load API, please click the shuffle button or reselect the genre again.";
             }
             return response.json();
         })
@@ -40,7 +43,8 @@ var searchMovieGenre = function (buttonContent2) {
             checkGenre(data.genres);
         })
         .catch(function(error){
-            console.log("error message");
+            notificationMovieEl.classList.remove("hide");
+            notificationMovieEl.textContent = "Please select the genre again.";
         });
 
 };
@@ -55,11 +59,13 @@ var checkGenre = function(check){
 }
 
  var movieResults = function (genreId) {
+    notificationMovieEl.textContent = "";
     var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=primary_release_date.desc&with_genres=" + genreId + "&language=en&with_original_language=en";
     fetch (apiUrl)
         .then(function(response){
             if (!response.ok) {
-                console.log("Failed to call API");
+                notificationMovieEl.classList.remove("hide");
+                notificationMovieEl.textContent = "Failed to load API, please click the shuffle button or reselect the genre again.";
             }
             return response.json();
         })
@@ -67,20 +73,22 @@ var checkGenre = function(check){
             searchMovie(genreId, data.total_pages);
         })
         .catch(function(error){
-            console.log("error message");
+            notificationMovieEl.classList.remove("hide");
+            notificationMovieEl.textContent = "Please select the genre again.";
         });
 
 };
 
 
 var searchMovie = function (genreId, totalPage) {
+    notificationMovieEl.textContent = "";
     var page =  Math.floor((Math.random() * 30)+1)
-    console.log("ID: " + genreId + " total page: " + page)
     var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=primary_release_date.desc&page=" + page + "&with_genres=" + genreId + "&with_original_language=en";
     fetch (apiUrl)
         .then(function(response){
             if (!response.ok) {
-                console.log("Failed to call API");
+                notificationMovieEl.classList.remove("hide");
+                notificationMovieEl.textContent = "Failed to load API, please click the shuffle button or reselect the genre again.";
             }
             return response.json();
         })
@@ -94,7 +102,8 @@ var searchMovie = function (genreId, totalPage) {
             displayMovieOptions (arrList);
         })
         .catch(function(error){
-            console.log("error message");
+            notificationMovieEl.classList.remove("hide");
+            notificationMovieEl.textContent = "Failed to load movie options, please click the shuffle the suffle options or reselect the genre again.";
         });
 
 };
@@ -104,6 +113,7 @@ var searchMovie = function (genreId, totalPage) {
 var displayMovieOptions = function(data){
     movieOutputEl.setAttribute("style", "display:block");
     movieDescriptionContainerEl.setAttribute("style", "display:none");
+    notificationMovieEl.classList.add("hide");
     posterEl.textContent="";
     listOfMoviesEl.textContent="";
     var listRange = Math.floor(Math.random () * (data.length-6));
@@ -119,6 +129,7 @@ var displayMovieOptions = function(data){
 var displayMovie = function(event){
     movieOutputEl.setAttribute("style", "display:none")
     movieDescriptionContainerEl.setAttribute("style", "display:block")
+    notificationMovieEl.classList.add("hide");
     var poster = event.target.getAttribute("alt");
     for (var i = 0; i < arrList.length; i++) {
         if (arrList[i].id==poster){
@@ -151,11 +162,17 @@ var displayMovie = function(event){
 var previousResults = function (){
     movieDescriptionContainerEl.setAttribute("style", "display:none");
     movieOutputEl.setAttribute("style", "display:block");
+    notificationMovieEl.classList.add("hide");
     posterEl.textContent="";
 }
 
 
 var SaveLocalStorage = function (event){
+    notificationMovieEl.textContent = "";
+    if (!posterEl.children[0]) {
+        notificationMovieEl.textContent = "please select a movie first before saving.";
+        notificationMovieEl.classList.remove("hide");
+    }
     var movieId = posterEl.children[0].getAttribute("alt")
     var searchMovieCheck = adultMovieStorage.findIndex(item => movieId == item);
     if (searchMovieCheck == -1){
@@ -166,7 +183,7 @@ var SaveLocalStorage = function (event){
 
 var loadLocalStorage = function (event){
     var history = JSON.parse(localStorage.getItem("adult-movieId"));
-    // console.log("history is : ", history)
+    if (history) {
     listOfMoviesEl.textContent=""
     var searchMovieCheck = ""
     for (var i = 0; i < history.length; i++){
@@ -174,16 +191,18 @@ var loadLocalStorage = function (event){
         searchMovieCheck = adultMovieStorage.findIndex(item => history[i] == item);
         if (searchMovieCheck == -1){
         adultMovieStorage.push(history[i])
-    }}
+    }}}
 
 }
 
 var loadSavedMovies = function (movieId){
+    notificationMovieEl.textContent = "";
     var apiUrl = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=93b9a9ec523abc563cc471bcb1fbab4b&language=en-US";
     fetch(apiUrl)
         .then(function(response){
             if (!response.ok){
-                console.log("failed to call")
+                notificationMovieEl.classList.remove("hide");
+                notificationMovieEl.textContent = "Failed to load API, please refresh or try again at another time.";
             }
             return response.json()
         })
@@ -191,13 +210,14 @@ var loadSavedMovies = function (movieId){
             displaySavedMovieOptions(data)
         })
         .catch(function(error){
-            console.log("error")
+            notificationMovieEl.classList.remove("hide");
+            notificationMovieEl.textContent = "Failed to load saved content. Please try again after saving new contents.";
         })
 
 }
 
 var displaySavedMovieOptions = function(data){
-    // console.log(data)
+    notificationMovieEl.classList.add("hide");
     movieOutputEl.setAttribute("style", "display:block")
     movieDescriptionContainerEl.setAttribute("style", "display:none")
 
@@ -211,14 +231,7 @@ var displaySavedMovieOptions = function(data){
         arrList.push(data)
 }
 
-var loadStoredData = function (){
-    var history = JSON.parse(localStorage.getItem("adult-movieId"));
-    if (history) {
-        for (var i = 0; i < history.length; i++){
-        adultMovieStorage.push(history[i])
-    }}
-}
-loadStoredData()
+loadLocalStorage()
 
 listOfMoviesEl.addEventListener("click", displayMovie)
 // backButtonEl.addEventListener("click",searchMovieGenre);

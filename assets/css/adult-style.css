@@ -49,3 +49,13 @@
 .storage-btn {
     margin-bottom: 10px;
 } 
+.notificationMovie, .notificationDrink {
+    color: white;
+    margin-top: 30px;
+    padding: 10px;
+    background-color: rgba(236, 232, 232, 0.588);
+    border-radius: 2px;
+}
+.hide {
+    display:none;
+}
