@@ -12,9 +12,10 @@ var listOfMoviesEl = document.querySelector(".list-of-movies");
 var movieOutputEl = document.querySelector(".movie-output");
 var movieDescriptionContainerEl = document.querySelector(".movie-description-container");
 var familyMovieOptionsEl = document.querySelector("#family-movie-options");
-var arrList = []
-var genreId = ""
-var familyMovieStorage = []
+var notificationMovieEl = document.querySelector(".notificationMovie");
+var arrList = [];
+var genreId = "";
+var familyMovieStorage = [];
 
 var movieCategory = function (event) {
     event.stopPropagation();
@@ -28,11 +29,13 @@ var selectGenre = function (event) {
 }
 
 var searchMovieGenre = function (buttonContent2) {
+    notificationMovieEl.textContent = "";
     var apiUrl = "https://api.themoviedb.org/3/genre/movie/list?api_key=93b9a9ec523abc563cc471bcb1fbab4b&language=en-US"
     fetch (apiUrl)
         .then(function(response){
             if (!response.ok) {
-                console.log("Failed to call API");
+                notificationMovieEl.classList.remove("hide");
+                notificationMovieEl.textContent = "Failed to load API, please click the shuffle button or reselect the genre again.";
             }
             return response.json()
         })
@@ -40,7 +43,8 @@ var searchMovieGenre = function (buttonContent2) {
             checkGenre(data.genres);
         })
         .catch(function(error){
-            console.log("error message")
+            notificationMovieEl.classList.remove("hide");
+            notificationMovieEl.textContent = "Please select the genre again.";
         });
 
 };
@@ -55,50 +59,53 @@ var checkGenre = function(check){
 }
 
  var movieResults = function (genreId) {
+    notificationMovieEl.textContent = "";
     var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=primary_release_date.desc&with_genres=" + genreId +"&language=en&certification_country=US&certification.lte=PG&certification.gte=G&with_original_language=en";
     fetch (apiUrl)
         .then(function(response){
             if (!response.ok) {
-                console.log("Failed to call API");
+                notificationMovieEl.classList.remove("hide");
+                notificationMovieEl.textContent = "Failed to load API, please click the shuffle button or reselect the genre again.";
             }
             return response.json()
         })
         .then(function(data) {
-            searchMovie(genreId, data.total_pages)
-            console.log("genre" + genreId)
-            console.log("TOTALPAGE IS: "+ data.total_pages)
-
+            searchMovie(genreId, data.total_pages);
         })
         .catch(function(error){
-            console.log("error message")
+            notificationMovieEl.classList.remove("hide");
+                notificationMovieEl.textContent = "Please select the genre again.";
         });
 
 };
 
 
 var searchMovie = function (genreId, totalPage) {
+    notificationMovieEl.textContent = ""
     var page =  Math.floor((Math.random() * 30)+1)
     var apiUrl ="https://api.themoviedb.org/3/discover/movie?api_key=93b9a9ec523abc563cc471bcb1fbab4b&sort_by=primary_release_date.desc&page=" + page + "&with_genres=" + genreId + "&language=en&certification_country=US&certification.lte=PG&certification.gte=G&with_original_language=en";
     fetch (apiUrl)
         .then(function(response){
             if (!response.ok) {
                 console.log("Failed to call API");
+                notificationMovieEl.classList.remove("hide");
+                notificationMovieEl.textContent = "Failed to load API, please click the shuffle button or reselect the genre again.";
             }
             return response.json()
         })
         .then(function(data) {
             arrList = []
-            console.log(data)
             for (var i = 0; i < data.results.length; i++){
                 if(data.results[i].poster_path){
-                    arrList.push(data.results[i])
+                    arrList.push(data.results[i]);
                     
                 }
             }
-            displayMovieOptions (arrList)
+            displayMovieOptions (arrList);
         })
         .catch(function(error){
-            console.log("error message")
+            notificationMovieEl.classList.remove("hide");
+            notificationMovieEl.textContent = "Failed to load movie options, please click the shuffle the suffle options or reselect the genre again.";
         });
 
 };
@@ -106,39 +113,39 @@ var searchMovie = function (genreId, totalPage) {
 
 
 var displayMovieOptions = function(data){
-    console.log(data)
-    movieOutputEl.setAttribute("style", "display:block")
-    movieDescriptionContainerEl.setAttribute("style", "display:none")
+    movieOutputEl.setAttribute("style", "display:block");
+    movieDescriptionContainerEl.setAttribute("style", "display:none");
+    notificationMovieEl.classList.add("hide");
     posterEl.textContent="";
     listOfMoviesEl.textContent="";
     var listRange = Math.floor(Math.random () * (data.length-6))
-    console.log(listRange)
     for (var i = listRange; i < listRange+6; i++){
-        var images = document.createElement("img")
-        images.setAttribute("src" , "https://image.tmdb.org/t/p/original"+data[i].poster_path)
-        images.setAttribute("alt", data[i].id)
-        images.classList = "movie-imgaes column is-4-desktop is-5-tablet is-6-mobile"
-        listOfMoviesEl.appendChild(images)
+        var images = document.createElement("img");
+        images.setAttribute("src" , "https://image.tmdb.org/t/p/original"+data[i].poster_path);
+        images.setAttribute("alt", data[i].id);
+        images.classList = "movie-imgaes column is-4-desktop is-5-tablet is-6-mobile";
+        listOfMoviesEl.appendChild(images);
     }
 }
 
 var displayMovie = function(event){
-    movieOutputEl.setAttribute("style", "display:none")
-    movieDescriptionContainerEl.setAttribute("style", "display:block")
+    movieOutputEl.setAttribute("style", "display:none");
+    movieDescriptionContainerEl.setAttribute("style", "display:block");
+    notificationMovieEl.classList.add("hide");
     var poster = event.target.getAttribute("alt");
     for (var i = 0; i < arrList.length; i++) {
         if (arrList[i].id==poster){
-            posterEl.innerHTML = "<img src='https://image.tmdb.org/t/p/original" + arrList[i].poster_path +  "' alt='" + arrList[i].id + "' class='posterImg card-image'>"
+            posterEl.innerHTML = "<img src='https://image.tmdb.org/t/p/original" + arrList[i].poster_path +  "' alt='" + arrList[i].id + "' class='posterImg card-image'>";
             movieContentEl.textContent= "";
-            movieContentEl.classList.add("card")
+            movieContentEl.classList.add("card");
             var title = document.createElement("li");
-            title.classList = "movie-title card-header card-header-title"
+            title.classList = "movie-title card-header card-header-title";
             var overview = document.createElement("li");
-            overview.classList = "movie-description card-content"
+            overview.classList = "movie-description card-content";
             var date = document.createElement("li");
-            date.classList = "movie-description card-content"
+            date.classList = "movie-description card-content";
             var rating = document.createElement("li");
-            rating.classList = "movie-description card-content"
+            rating.classList = "movie-description card-content";
             title.textContent = arrList[i].title;
             overview.textContent = "Movie Description: " + arrList[i].overview;
             date.textContent = "Movie Release Date: " + arrList[i].release_date;
@@ -157,15 +164,18 @@ var displayMovie = function(event){
 var previousResults = function (){
     movieDescriptionContainerEl.setAttribute("style", "display:none")
     movieOutputEl.setAttribute("style", "display:block")
-    posterEl.textContent=""
+    posterEl.textContent="";
+    notificationMovieEl.classList.add("hide");
 }
 
 
 var SaveLocalStorage = function (event){
+    notificationMovieEl.textContent = "";
+    if (!posterEl.children[0]) {
+        notificationMovieEl.textContent = "please select a movie first before saving.";
+        notificationMovieEl.classList.remove("hide");
+    }
     var movieId = posterEl.children[0].getAttribute("alt")
-    // if (!movieId) {
-    //     document.create
-    // }
     var searchCheck = familyMovieStorage.findIndex(item => movieId == item);
     if (searchCheck == -1){
     familyMovieStorage.push(movieId)
@@ -175,23 +185,25 @@ var SaveLocalStorage = function (event){
 
 var loadLocalStorage = function (event){
     var history = JSON.parse(localStorage.getItem("family-movieId"));
-    listOfMoviesEl.textContent=""
-    var searchMovieCheck = ""
+    if (history) {
+    listOfMoviesEl.textContent="";
+    var searchMovieCheck = "";
     for (var i = 0; i < history.length; i++){
-        loadSavedMovies(history[i])
+        loadSavedMovies(history[i]);
         searchMovieCheck = familyMovieStorage.findIndex(item => history[i] == item);
         if (searchMovieCheck == -1){
-        familyMovieStorage.push(history[i])
-    }}
+        familyMovieStorage.push(history[i]);
+    }}}
 
 }
 
 var loadSavedMovies = function (movieId){
+    notificationMovieEl.textContent = ""
     var apiUrl = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=93b9a9ec523abc563cc471bcb1fbab4b&language=en-US";
     fetch(apiUrl)
         .then(function(response){
             if (!response.ok){
-                console.log("failed to call")
+                notificationMovieEl.textContent = "Failed to load API, please refresh or try again at another time.";
             }
             return response.json()
         })
@@ -199,35 +211,25 @@ var loadSavedMovies = function (movieId){
             displaySavedMovieOptions(data)
         })
         .catch(function(error){
-            console.log("error")
+            notificationMovieEl.textContent = "Failed to load saved content. Please try again after saving new contents.";
         })
 
 }
 
 var displaySavedMovieOptions = function(data){
-    console.log(data)
     movieOutputEl.setAttribute("style", "display:block")
     movieDescriptionContainerEl.setAttribute("style", "display:none")
+    notificationMovieEl.classList.add("hide");
 
         var images = document.createElement("img")
         images.setAttribute("src" , "https://image.tmdb.org/t/p/original"+data.poster_path)
         images.setAttribute("alt", data.id)
-        images.setAttribute("style", "width: 250px")
-        images.setAttribute("style", "height: 250px")
         images.classList = "movie-images column is-4-desktop is-5-tablet is-6-mobile"
         familyMovieOptionsEl.appendChild(images)
         arrList.push(data)
 }
 
-var loadStoredData = function (){
-    var history = JSON.parse(localStorage.getItem("family-movieId"));
-    if (history) {
-        for (var i = 0; i < history.length; i++){
-        familyMovieStorage.push(history[i])
-    }}
-}
-
-loadStoredData()
+loadLocalStorage()
 
 listOfMoviesEl.addEventListener("click", displayMovie)
 backButtonEl.addEventListener("click", previousResults);

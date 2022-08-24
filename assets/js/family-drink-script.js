@@ -9,6 +9,7 @@ var ingredientImgEl = document.querySelector(".ingredients");
 var drinkIdListEl = document.querySelector(".drink-id-list");
 var drinkOutputEl = document.querySelector(".drinkImgContainer");
 var familyDrinkOptionsEl = document.querySelector("#family-drink-options");
+var notificationDrinkEl = document.querySelector(".notificationDrink");
 var arrayFetch = [];
 var familyDrinkStorage = [];
 
@@ -39,45 +40,48 @@ var selectIngredient = function (event) {
     searchDrinkId(buttonContent.textContent);
 }
 
-var arrayFetch = []
-
 var searchDrinkId = function (buttonContent) {
     outputContainterEl.textContent="";
-
+    notificationDrinkEl.textContent="";
     var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic";
     fetch (apiUrl)
             .then(function(response){
                 if (!response.ok){
-                    console.log("API call failed")
+                    notificationDrinkEl.classList.remove("hide");
+                    notificationDrinkEl.textContent = "Failed to load API, please click the shuffle button or reselect the genre again.";
                 }
                 return response.json()
             })
             .then(function(data){
-                arrayFetch = []
-                arrayFetch.push(data.drinks)
+                arrayFetch = [];
+                arrayFetch.push(data.drinks);
                 findDrinkId(buttonContent,arrayFetch); 
+            })
+            .catch(function(error){
+                notificationDrinkEl.classList.remove("hide");
+                notificationDrinkEl.textContent = "Incorrect drink option input, please try again.";
             })
         }
 
 var findDrinkId = function (buttonContent, data){
-    outputContainterEl.setAttribute("style", "display:block")
-    ingredientImgEl.setAttribute("style", "display:none")
+    outputContainterEl.setAttribute("style", "display:block");
+    ingredientImgEl.setAttribute("style", "display:none");
+    notificationDrinkEl.classList.add("hide");
     drinkOutputEl.textContent="";
-    familyDrinkOptionsEl.textContent=""
+    familyDrinkOptionsEl.textContent="";
     for(var i= 0; i < totalDrinks.length; i++){
         if(buttonContent == totalDrinks[i].name){
             var drinkArray =  totalDrinks[i].id;
             var apiArray = data[0];
-            console.log(apiArray[3].strDrinkThumb)
             for(var k = 0; k < drinkArray.length; k++){
                 for(var j=0; j < apiArray.length; j++){
                     if(drinkArray[k]==apiArray[j].idDrink){
                         var img = document.createElement("li");
-                        img.setAttribute("style", "list-style: none")
+                        img.setAttribute("style", "list-style: none");
                         img.classList = "drink-image column is-4-desktop is-5-tablet is-6-mobile";
                         img.innerHTML = "<img src='" + apiArray[j].strDrinkThumb + "' alt='" + apiArray[j].idDrink  + "' class='drinkImg'>";
                         familyDrinkOptionsEl.appendChild(img);
-                        outputContainterEl.appendChild(familyDrinkOptionsEl)
+                        outputContainterEl.appendChild(familyDrinkOptionsEl);
                     }
                 }
             }
@@ -86,35 +90,40 @@ var findDrinkId = function (buttonContent, data){
     } 
 
 var ingredientsContent = function (drinkId){
+    notificationDrinkEl.textContent="";
     var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkId
     fetch (apiUrl)
         .then(function(response){
             if (!response.ok){
-                console.log("API call failed")
+                notificationDrinkEl.classList.remove("hide");
+                notificationDrinkEl.textContent = "Failed to load API, please click the shuffle button or reselect the genre again.";
             }
             return response.json()
         })
         .then(function(data){
             displayIngredient(data)
         })
+        .catch(function(error){
+            notificationDrinkEl.classList.remove("hide");
+            notificationDrinkEl.textContent = "Cannot recognize drink ID, please try selecting the drink option again.";
+        })
 };
 
 
 var displayIngredient = function(data){
 
-    ingredientContainerEl.textContent=""
-    ingredientContainerEl.classList.add("card")
+    ingredientContainerEl.textContent="";
+    ingredientContainerEl.classList.add("card");
     outputContainterEl.setAttribute("style", "display:none");
-    ingredientImgEl.setAttribute("style", "display:block")
-    console.log(data.drinks[0].strIngredient1)
-    console.log(data.drinks[0].strMeasure1)
+    ingredientImgEl.setAttribute("style", "display:block");
+    notificationDrinkEl.classList.add("hide");
     var drinkImg = data.drinks[0].strDrinkThumb;
-    drinkOutputEl.innerHTML = "<img src='" + drinkImg + "' alt='" + data.drinks[0].idDrink + "' class='drinkImg card-image'>"
+    drinkOutputEl.innerHTML = "<img src='" + drinkImg + "' alt='" + data.drinks[0].idDrink + "' class='drinkImg card-image'>";
     var drinkName = document.createElement("li");
-    drinkName.classList = "drink-name card-header card-header-title"
-    drinkName.textContent = data.drinks[0].strDrink
+    drinkName.classList = "drink-name card-header card-header-title";
+    drinkName.textContent = data.drinks[0].strDrink;
     ingredientImgEl.appendChild(drinkOutputEl);
-    ingredientContainerEl.appendChild(drinkName)
+    ingredientContainerEl.appendChild(drinkName);
 
     for (var i = 0; i < 15; i++) {
         var arry = [data.drinks[0].strIngredient1,data.drinks[0].strIngredient2,data.drinks[0].strIngredient3,data.drinks[0].strIngredient4,data.drinks[0].strIngredient6,data.drinks[0].strIngredient7,data.drinks[0].strIngredient8,data.drinks[0].strIngredient9,data.drinks[0].strIngredient10,data.drinks[0].strIngredient11,data.drinks[0].strIngredient12,data.drinks[0].strIngredient13,data.drinks[0].strIngredient14,data.drinks[0].strIngredient15];
@@ -122,87 +131,96 @@ var displayIngredient = function(data){
         
         if (arry[i]){
             var drinkIngredient = document.createElement("li");
-            drinkIngredient.classList = "drink-ingredient card-content"
-            drinkIngredient.textContent =arry1[i] + " - " + arry[i]
-            ingredientContainerEl.appendChild(drinkIngredient)
-
+            drinkIngredient.classList = "drink-ingredient card-content";
+            drinkIngredient.textContent =arry1[i] + " - " + arry[i];
+            ingredientContainerEl.appendChild(drinkIngredient);
         }
 
     }
 
     var drinkInstruction = document.createElement("li");
-    drinkInstruction.classList = "drink-instruction card-content"
-    drinkInstruction.textContent = data.drinks[0].strInstructions
-    ingredientContainerEl.appendChild(drinkInstruction)
+    drinkInstruction.classList = "drink-instruction card-content";
+    drinkInstruction.textContent = data.drinks[0].strInstructions;
+    ingredientContainerEl.appendChild(drinkInstruction);
     ingredientImgEl.appendChild(ingredientContainerEl);
-    console.log(data);
 }
 
 
 var previousDrink = function (event){
     outputContainterEl.setAttribute("style", "display:block");
-    ingredientImgEl.setAttribute("style", "display:none")
-    drinkOutputEl.textContent = ""
+    ingredientImgEl.setAttribute("style", "display:none");
+    notificationDrinkEl.classList.add("hide");
+    drinkOutputEl.textContent = "";
 }
 
 
-function getId(event){
+var getId = function (event){
     var imageId = event.target.getAttribute('alt');
-    console.log("myid is:" +imageId)
-    if (event.target.classList.contains("drinkImg")){
-        
+    if (event.target.classList.contains("drinkImg")){      
         ingredientsContent(imageId);
         outputContainterEl.setAttribute("style", "display:none");
     }
 }
 
 var SaveLocalStorage = function (event){
-    var drinkId = drinkOutputEl.children[0].getAttribute("alt")
+    notificationDrinkEl.textContent = "";
+    if (!posterEl.children[0]) {
+        notificationDrinkEl.textContent = "please select a drink first before saving.";
+        notificationDrinkEl.classList.remove("hide");
+    } 
+    var drinkId = drinkOutputEl.children[0].getAttribute("alt");
     var searchCheck = familyDrinkStorage.findIndex(item => drinkId == item);
     if (searchCheck == -1){
-    familyDrinkStorage.push(drinkId)
+    familyDrinkStorage.push(drinkId);
     localStorage.setItem("family-drinkId", JSON.stringify(familyDrinkStorage));
     }
 }
 
 var loadLocalStorage = function (event){
     var drinkhistory = JSON.parse(localStorage.getItem("family-drinkId"));
-    familyDrinkOptionsEl.textContent=""
-    var searchDrinkCheck = ""
+    if (drinkhistory){
+    familyDrinkOptionsEl.textContent="";
+    var searchDrinkCheck = "";
     for (var i = 0; i < drinkhistory.length; i++){
-        loadSavedDrinks(drinkhistory[i])
+        loadSavedDrinks(drinkhistory[i]);
         searchDrinkCheck = familyDrinkStorage.findIndex(item => drinkhistory[i] == item);
         if (searchDrinkCheck == -1){
-        familyDrinkStorage.push(drinkhistory[i])
-    }}
+        familyDrinkStorage.push(drinkhistory[i]);
+    }}}
 
 }
 
 var loadSavedDrinks = function (drinkId){
+    notificationDrinkEl.textContent="";
     var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + drinkId
     fetch (apiUrl)
         .then(function(response){
             if (!response.ok){
-                console.log("API call failed")
+                notificationDrinkEl.classList.remove("hide");
+                notificationDrinkEl.textContent = "Failed to load API, please refersh the page or try again later.";
             }
             return response.json()
         })
         .then(function(data){
-            displaySavedDrinkOptions(data)
+            displaySavedDrinkOptions(data);
+        })
+        .catch(function(error){
+            notificationDrinkEl.classList.remove("hide");
+            notificationDrinkEl.textContent = "Failed to load saved content. Please try again after saving new contents.";
         })
 };
 
 
 var displaySavedDrinkOptions = function(data){
-    console.log(data)
-    ingredientImgEl.setAttribute("style", "display:none")
-    outputContainterEl.setAttribute("style", "display:block")
+    ingredientImgEl.setAttribute("style", "display:none");
+    outputContainterEl.setAttribute("style", "display:block");
+    notificationEl.classList.add("hide");
     for (var i = 0; i < data.drinks.length; i++){
         var img = document.createElement("li");
-        img.setAttribute("style", "list-style: none")
+        img.setAttribute("style", "list-style: none");
         img.classList = "drink-image column is-4-desktop is-5-tablet is-6-mobile";
         img.innerHTML = "<img src='" + data.drinks[i].strDrinkThumb + "' alt='" + data.drinks[i].idDrink  + "' class='drinkImg card-image'>";
-        familyDrinkOptionsEl.appendChild(img)
+        familyDrinkOptionsEl.appendChild(img);
         outputContainterEl.appendChild(familyDrinkOptionsEl);
     }
    
@@ -210,18 +228,18 @@ var displaySavedDrinkOptions = function(data){
 }
 
 var loadSavedDrinksId = function (event) {
-    searchDrinkId(buttonContent.textContent)
+    searchDrinkId(buttonContent.textContent);
 }
 
 var loadStoredData = function (){
     var history = JSON.parse(localStorage.getItem("family-drinkId"));
     if (history) {
         for (var i = 0; i < history.length; i++){
-        familyDrinkStorage.push(history[i])
+        familyDrinkStorage.push(history[i]);
     }}
 }
 
-loadStoredData()
+loadLocalStorage();
 
 backBtnEl.addEventListener("click", previousDrink);
 shuffleBtnEl.addEventListener("click", loadSavedDrinksId);
