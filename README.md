@@ -19,11 +19,11 @@ API Keys: The CocktailDB and The MovieDB<br>
 Local Storage
 
 ## Collaborative Team
-Nabeel Mansuri <br>
-Tony Meng <br>
-Jatin Na <br>
-Lisa Raposa Millar <br>
-Keeve Whyte
+<a href="https://github.com/nab-man/" target="_blank">Nabeel Mansuri</a><br>
+<a href="https://github.com/tonymengt/" target="_blank">Tony Meng</a><br>
+<a href="https://github.com/jatin1211/" target="_blank">Jatin Na</a><br>
+<a href="https://github.com/raposamillar/" target="_blank">Lisa Raposa Millar</a><br>
+<a href="https://github.com/KeeveRW11/" target="_blank">Keeve Whyte</a>
 
 ## Additional Information and Attributions
 Please note that this is a non-commercial project.  As such, the collaborative team gratefully acknowledges The CocktailDB and The MovieDB for making their data openly accessible.<br>
